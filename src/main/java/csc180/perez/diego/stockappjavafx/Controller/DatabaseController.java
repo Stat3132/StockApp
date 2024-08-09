@@ -60,15 +60,16 @@ public class DatabaseController {
     }
 
     public static void createStocks(Stock stock){
-            String sql = "INSERT INTO stock (FirstName, LastName, email, BirthDay, UserName,Password) Values (?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO stock (ticket, lowestPrice, highestPrice, currentClosingPrice,volume,openingPrice) Values (?, ?, ?, ?, ?, ?)";
             try{
                 Connection con = DriverManager.getConnection(url, user, password);
                 PreparedStatement pst = con.prepareStatement(sql);
                 pst.setString(1,stock.getTicket());
-                pst.setDouble(2,stock.getHighestPrice());
-                pst.setDouble(3,stock.getVolume());
-                pst.setDouble(4,stock.getLowestPrice());
-                pst.setDouble(5,stock.getCurrentClosingPrice());
+                pst.setDouble(2,stock.getLowestPrice());
+                pst.setDouble(3,stock.getHighestPrice());
+                pst.setDouble(4,stock.getCurrentClosingPrice());
+                pst.setDouble(5,stock.getVolume());
+                pst.setDouble(6,stock.getOpeningPrice());
                 pst.executeUpdate();
                 System.out.println("User created correctly");
             } catch (SQLException e) {
