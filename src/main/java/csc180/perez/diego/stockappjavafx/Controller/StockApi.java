@@ -46,8 +46,6 @@ public class StockApi {
 
     public void stockSearch(String stockName){
 
-
-
     }
 
 }
