@@ -38,30 +38,47 @@ public class StockApi {
                     i--;
                     continue;
                 }
-                double doubledOpeningPrice = (double) results.get(i).get("o");
-                double doubledLowestPrice = (double) results.get(i).get("l");
-                double doubledHighestPrice = (double) results.get(i).get("h");
-                double doubledClosingPrice = (double) results.get(i).get("c");
-                double doubledVolume = (double) results.get(i).get("v");
-                if (results.get(i).get("o") == Integer.class) {
-                    Number openingPrice = (Number) results.get(0).get("o");
+                double doubledOpeningPrice;
+                double doubledLowestPrice;
+                double doubledHighestPrice;
+                double doubledClosingPrice;
+                double doubledVolume;
+                long longTransactionalValue;
+                if (results.getFirst().get("o") == Integer.class) {
+                    Number openingPrice = (Number) results.getFirst().get("o");
                     doubledOpeningPrice = openingPrice.doubleValue();
+                } else {
+                    doubledOpeningPrice = (double) results.getFirst().get("o");
                 }
-                if (results.get(i).get("l") == Integer.class) {
-                    Number lowestPrice = (Number) results.get(0).get("l");
+                if (results.getFirst().get("l").getClass() == Integer.class) {
+                    Number lowestPrice = (Number) results.getFirst().get("l");
                     doubledLowestPrice = lowestPrice.doubleValue();
+                } else {
+                    doubledLowestPrice = (double) results.getFirst().get("l");
                 }
-                if (results.get(i).get("h") == Integer.class) {
-                    Number lowestPrice = (Number) results.get(0).get("h");
+                if (results.getFirst().get("h").getClass() == Integer.class) {
+                    Number lowestPrice = (Number) results.getFirst().get("h");
                     doubledHighestPrice = lowestPrice.doubleValue();
+                } else {
+                    doubledHighestPrice = (double) results.getFirst().get("h");
                 }
-                if (results.get(i).get("c") == Integer.class) {
-                    Number lowestPrice = (Number) results.get(0).get("c");
+                if (results.getFirst().get("c").getClass() == Integer.class) {
+                    Number lowestPrice = (Number) results.getFirst().get("c");
                     doubledClosingPrice = lowestPrice.doubleValue();
+                } else {
+                   doubledClosingPrice = (double) results.getFirst().get("c");
                 }
-                if (results.get(i).get("v") == Integer.class) {
-                    Number lowestPrice = (Number) results.get(0).get("v");
+                if (results.getFirst().get("v").getClass() == Integer.class) {
+                    Number lowestPrice = (Number) results.getFirst().get("v");
                     doubledVolume = lowestPrice.doubleValue();
+                } else {
+                    doubledVolume = (double) results.getFirst().get("v");
+                }
+                if (results.getFirst().get("t").getClass() == Integer.class){
+                    Number transactions = (Number) results.getFirst().get("t");
+                    longTransactionalValue = transactions.longValue();
+                } else {
+                   longTransactionalValue = (long) results.getFirst().get("t");
                 }
                 Stock newStock = new Stock(
                         stockList.get(i).toString(),
@@ -70,7 +87,7 @@ public class StockApi {
                         doubledClosingPrice,
                         doubledVolume,
                         doubledOpeningPrice,
-                        (long) results.get(i).get("t"));
+                        longTransactionalValue);
                 stockMap.put(stockList.get(i).toString(), newStock);
             } catch (IOException e) {
                 e.printStackTrace();
