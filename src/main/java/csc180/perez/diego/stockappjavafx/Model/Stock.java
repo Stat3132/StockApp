@@ -7,14 +7,16 @@ public class Stock {
     private double currentClosingPrice;
     private double volume;
     private double openingPrice; //What I will choose as the value people buy stocks at.
+    private long amountOfTransactions;
 
-    public Stock(String ticket, double lowestPrice, double highestPrice, double currentClosingPrice, double volume, double openingPrice) {
+    public Stock(String ticket, double lowestPrice, double highestPrice, double currentClosingPrice, double volume, double openingPrice, long amountOfTransactions) {
         this.ticket = ticket;
         this.lowestPrice = lowestPrice;
         this.highestPrice = highestPrice;
         this.currentClosingPrice = currentClosingPrice;
         this.volume = volume;
         this.openingPrice = openingPrice;
+        this.amountOfTransactions = amountOfTransactions;
     }
 
     public String getTicket() {
@@ -67,5 +69,13 @@ public class Stock {
 
     public void setOpeningPrice(double openingPrice) {
         this.openingPrice = openingPrice;
+    }
+
+    public long getAmountOfTransactions() {
+        return amountOfTransactions;
+    }
+
+    public void setAmountOfTransactions(long amountOfTransactions) {
+        this.amountOfTransactions = amountOfTransactions;
     }
 }

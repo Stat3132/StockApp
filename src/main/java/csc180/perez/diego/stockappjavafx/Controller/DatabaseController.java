@@ -8,7 +8,7 @@ import java.sql.*;
 public class DatabaseController {
     static String url = "jdbc:mysql://localhost:3306/";
     static String user = "root";
-    static String password = "password";
+    static String password = "test";
 
     public void testConnection() throws SQLException { //uses version to check if the app is connected to the database
         String sql = "SELECT VERSION()";
@@ -44,7 +44,7 @@ public class DatabaseController {
                     "Age INT NULL," +
                     "PRIMARY KEY (`Id`));";
             st.executeUpdate(sql);
-            sql = "CREATE TABLE stocks ("+
+            sql = "CREATE TABLE if not exists stocks("+
                     "idstocks INT NOT NULL AUTO_INCREMENT,"+
                     "ticket VARCHAR(45) NULL," +
                     "lowestPrice DOUBLE NULL,"+
@@ -60,21 +60,27 @@ public class DatabaseController {
     }
 
     public static void createStocks(Stock stock){
-            String sql = "INSERT INTO stock (ticket, lowestPrice, highestPrice, currentClosingPrice,volume,openingPrice) Values (?, ?, ?, ?, ?, ?)";
-            try{
+            String sql = "INSERT INTO stock (ticket, lowestPrice, highestPrice, currentClosingPrice, volume, openingPrice)Values (?, ?, ?, ?, ?, ?)";
+            try {
                 Connection con = DriverManager.getConnection(url, user, password);
                 PreparedStatement pst = con.prepareStatement(sql);
-                pst.setString(1,stock.getTicket());
-                pst.setDouble(2,stock.getLowestPrice());
-                pst.setDouble(3,stock.getHighestPrice());
-                pst.setDouble(4,stock.getCurrentClosingPrice());
-                pst.setDouble(5,stock.getVolume());
-                pst.setDouble(6,stock.getOpeningPrice());
-                pst.executeUpdate();
-                System.out.println("User created correctly");
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
+                if (pst != null) {
+                    pst.setString(1, stock.getTicket());
+                    pst.setDouble(2, stock.getLowestPrice());
+                    pst.setDouble(3, stock.getHighestPrice());
+                    pst.setDouble(4, stock.getCurrentClosingPrice());
+                    pst.setDouble(5, stock.getVolume());
+                    pst.setDouble(6, stock.getOpeningPrice());
+                    pst.executeUpdate();
+                    System.out.println("User created correctly");
+                }
+                else {
+                    System.out.println("Failed to establish connection");
+                }
+                } catch(SQLException e){
+                    throw new RuntimeException(e);
+                }
+
         }
     }
 
