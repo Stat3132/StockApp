@@ -8,5 +8,5 @@ module csc180.perez.diego.stockappjavafx {
 
 
     opens csc180.perez.diego.stockappjavafx to javafx.fxml;
-    exports csc180.perez.diego.stockappjavafx;//test
+    exports csc180.perez.diego.stockappjavafx.Controller;//test
 }
