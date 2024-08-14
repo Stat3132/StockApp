@@ -24,18 +24,18 @@ public class StockApi {
 
     public void accessingAPI() {
         stockList.addAll(Arrays.asList(StockTicker.values()));
-        for (int i = 0; i < 5; i++) {
-            HttpGet request = new HttpGet("https://api.polygon.io/v2/aggs/ticker/" + stockList.get(i) + "/range/1/day/" + mostRecentStockTime + "?apiKey=6yr9w0ir7v0gGtri_v4LXi1ehRoAMpQd");
+        for (int currentStockBeingIteratedOver = 0; currentStockBeingIteratedOver < 5; currentStockBeingIteratedOver++) {
+            HttpGet request = new HttpGet("https://api.polygon.io/v2/aggs/ticker/" + stockList.get(currentStockBeingIteratedOver) + "/range/1/day/" + mostRecentStockTime + "?apiKey=6yr9w0ir7v0gGtri_v4LXi1ehRoAMpQd");
             CloseableHttpClient httpClient = HttpClients.createDefault();
             try (CloseableHttpResponse response = httpClient.execute(request)) {
                 String responseBody = EntityUtils.toString(response.getEntity());
                 ObjectMapper stockData = new ObjectMapper();
-                Map<String, Object> data = stockData.readValue(responseBody, Map.class);
-                List<Map<String, Object>> results = (List<Map<String, Object>>) data.get("results");
-                if (results == null) {
+                Map<String, Object> mappedStockData = stockData.readValue(responseBody, Map.class);
+                List<Map<String, Object>> listOfStockData = (List<Map<String, Object>>) mappedStockData.get("results");
+                if (listOfStockData == null) {
                     currentDayMinusOne = currentDayMinusOne.minusDays(2);
                     mostRecentStockTime = currentDayMinusOne + "/" + currentDayMinusOne;
-                    i--;
+                    currentStockBeingIteratedOver--;
                     continue;
                 }
                 double doubledOpeningPrice;
@@ -44,57 +44,56 @@ public class StockApi {
                 double doubledClosingPrice;
                 double doubledVolume;
                 long longTransactionalValue;
-                if (results.getFirst().get("o") == Integer.class) {
-                    Number openingPrice = (Number) results.getFirst().get("o");
+                if (listOfStockData.getFirst().get("o") == Integer.class) {
+                    Number openingPrice = (Number) listOfStockData.getFirst().get("o");
                     doubledOpeningPrice = openingPrice.doubleValue();
                 } else {
-                    doubledOpeningPrice = (double) results.getFirst().get("o");
+                    doubledOpeningPrice = (double) listOfStockData.getFirst().get("o");
                 }
-                if (results.getFirst().get("l").getClass() == Integer.class) {
-                    Number lowestPrice = (Number) results.getFirst().get("l");
+                if (listOfStockData.getFirst().get("l").getClass() == Integer.class) {
+                    Number lowestPrice = (Number) listOfStockData.getFirst().get("l");
                     doubledLowestPrice = lowestPrice.doubleValue();
                 } else {
-                    doubledLowestPrice = (double) results.getFirst().get("l");
+                    doubledLowestPrice = (double) listOfStockData.getFirst().get("l");
                 }
-                if (results.getFirst().get("h").getClass() == Integer.class) {
-                    Number lowestPrice = (Number) results.getFirst().get("h");
+                if (listOfStockData.getFirst().get("h").getClass() == Integer.class) {
+                    Number lowestPrice = (Number) listOfStockData.getFirst().get("h");
                     doubledHighestPrice = lowestPrice.doubleValue();
                 } else {
-                    doubledHighestPrice = (double) results.getFirst().get("h");
+                    doubledHighestPrice = (double) listOfStockData.getFirst().get("h");
                 }
-                if (results.getFirst().get("c").getClass() == Integer.class) {
-                    Number lowestPrice = (Number) results.getFirst().get("c");
+                if (listOfStockData.getFirst().get("c").getClass() == Integer.class) {
+                    Number lowestPrice = (Number) listOfStockData.getFirst().get("c");
                     doubledClosingPrice = lowestPrice.doubleValue();
                 } else {
-                   doubledClosingPrice = (double) results.getFirst().get("c");
+                   doubledClosingPrice = (double) listOfStockData.getFirst().get("c");
                 }
-                if (results.getFirst().get("v").getClass() == Integer.class) {
-                    Number lowestPrice = (Number) results.getFirst().get("v");
+                if (listOfStockData.getFirst().get("v").getClass() == Integer.class) {
+                    Number lowestPrice = (Number) listOfStockData.getFirst().get("v");
                     doubledVolume = lowestPrice.doubleValue();
                 } else {
-                    doubledVolume = (double) results.getFirst().get("v");
+                    doubledVolume = (double) listOfStockData.getFirst().get("v");
                 }
-                if (results.getFirst().get("t").getClass() == Integer.class){
-                    Number transactions = (Number) results.getFirst().get("t");
+                if (listOfStockData.getFirst().get("t").getClass() == Integer.class){
+                    Number transactions = (Number) listOfStockData.getFirst().get("t");
                     longTransactionalValue = transactions.longValue();
                 } else {
-                   longTransactionalValue = (long) results.getFirst().get("t");
+                   longTransactionalValue = (long) listOfStockData.getFirst().get("t");
                 }
                 Stock newStock = new Stock(
-                        stockList.get(i).toString(),
+                        stockList.get(currentStockBeingIteratedOver).toString(),
                         doubledLowestPrice,
                         doubledHighestPrice,
                         doubledClosingPrice,
                         doubledVolume,
                         doubledOpeningPrice,
                         longTransactionalValue);
-                stockMap.put(stockList.get(i).toString(), newStock);
+                stockMap.put(stockList.get(currentStockBeingIteratedOver).toString(), newStock);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
         for (Stock stock : stockMap.values()) {
-            DatabaseController.createStocks(stock);
         }
     }
 
