@@ -78,4 +78,17 @@ public class Stock {
     public void setAmountOfTransactions(long amountOfTransactions) {
         this.amountOfTransactions = amountOfTransactions;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder stockStringBuilder = new StringBuilder();
+        stockStringBuilder.append("     Ticket: ").append(ticket).append("\n");
+        stockStringBuilder.append("Lowest price: ").append(lowestPrice).append("\n");
+        stockStringBuilder.append("Highest price: ").append(highestPrice).append("\n");
+        stockStringBuilder.append("Current closing price: ").append(currentClosingPrice).append("\n");
+        stockStringBuilder.append("Volume: ").append(volume).append("\n");
+        stockStringBuilder.append("Opening price: ").append(openingPrice).append("\n");
+        stockStringBuilder.append("Amount of transactions: ").append(amountOfTransactions).append("\n");
+        return stockStringBuilder.toString();
+    }
 }
