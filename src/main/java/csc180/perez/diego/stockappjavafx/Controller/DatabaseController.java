@@ -100,7 +100,7 @@ public class DatabaseController {
             String sql = "INSERT INTO stocks (ticket, lowestPrice, highestPrice, currentClosingPrice, volume, openingPrice) Values (?, ?, ?, ?, ?, ?)";
             try {
                 //this should really call the create stock method instead of implementing it again
-                Connection con = DriverManager.getConnection(url+ "stock", user, password);
+                Connection con = DriverManager.getConnection(url, user, password);
                 PreparedStatement pst = con.prepareStatement(sql);
                 if (pst != null) {
                     pst.setString(1, stock.getTicket());
