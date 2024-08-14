@@ -1,7 +1,8 @@
 package csc180.perez.diego.stockappjavafx.Controller;
 
+import csc180.perez.diego.stockappjavafx.Model.Person;
 import csc180.perez.diego.stockappjavafx.Model.Stock;
-import javafx.scene.control.TextField;
+
 
 import java.sql.*;
 
@@ -33,7 +34,8 @@ public class DatabaseController {
             st.executeUpdate(sql);
             sql = "use stock;";
             st.executeUpdate(sql);
-            Connection conn = DriverManager.getConnection(url + "stock", user, password);
+            url = url + "stock";
+            Connection conn = DriverManager.getConnection(url, user, password);
             st = conn.createStatement();
             sql =  "create table if not exists people (" +
             "`Id` INT NOT NULL AUTO_INCREMENT," +
@@ -54,14 +56,50 @@ public class DatabaseController {
                     "openingPrice DOUBLE NULL,"+
                     "PRIMARY KEY (`idstocks`));";
             st.executeUpdate(sql);
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+    }
+    public void createPerson(Person person){
+        try{
+            Connection con = DriverManager.getConnection(url, user, password);
+            String sql = "INSERT INTO people (FirstName, LastName, Email, PhoneNumber, Age) VALUES (?, ?, ?, ?, ?);";
+            PreparedStatement pst = con.prepareStatement(sql);
+
+            pst.setString(1, person.getFirstName());
+            pst.setString(2, person.getLastName());
+            pst.setString(3, person.getEmail());
+            pst.setString(4, person.getPhoneNumber());
+            pst.setInt(5, person.getAge());
+
+            pst.executeUpdate();
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+    }
+
+    public void createStock(Stock s){
+        try{
+            Connection con = DriverManager.getConnection(url, user, password);
+            String sql = "INSERT INTO stocks (ticket, lowestPrice, highestPrice, currentClosingPrice, volume, openingPrice) VALUES (?, ?, ?, ?, ? ,?);";
+            PreparedStatement pst = con.prepareStatement(sql);
+
+            pst.setString(1, s.getTicket());
+            pst.setDouble(2, s.getLowestPrice());
+            pst.setDouble(3, s.getHighestPrice());
+            pst.setDouble(4, s.getCurrentClosingPrice());
+            pst.setDouble(5, s.getVolume());
+            pst.setDouble(6, s.getOpeningPrice());
+            pst.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
     public static void createStocks(Stock stock){
-            String sql = "INSERT INTO stock (ticket, lowestPrice, highestPrice, currentClosingPrice, volume, openingPrice)Values (?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO stocks (ticket, lowestPrice, highestPrice, currentClosingPrice, volume, openingPrice) Values (?, ?, ?, ?, ?, ?)";
             try {
+                //this should really call the create stock method instead of implementing it again
                 Connection con = DriverManager.getConnection(url, user, password);
                 PreparedStatement pst = con.prepareStatement(sql);
                 if (pst != null) {
