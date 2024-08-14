@@ -34,6 +34,7 @@ public class DatabaseController {
             st.executeUpdate(sql);
             sql = "use stock;";
             st.executeUpdate(sql);
+            url = url + "stock";
             Connection conn = DriverManager.getConnection(url, user, password);
             st = conn.createStatement();
             sql =  "create table if not exists people (" +
@@ -61,7 +62,7 @@ public class DatabaseController {
     }
     public void createPerson(Person person){
         try{
-            Connection con = DriverManager.getConnection(url+"stock", user, password);
+            Connection con = DriverManager.getConnection(url, user, password);
             String sql = "INSERT INTO people (FirstName, LastName, Email, PhoneNumber, Age) VALUES (?, ?, ?, ?, ?);";
             PreparedStatement pst = con.prepareStatement(sql);
 
@@ -89,7 +90,6 @@ public class DatabaseController {
             pst.setDouble(4, s.getCurrentClosingPrice());
             pst.setDouble(5, s.getVolume());
             pst.setDouble(6, s.getOpeningPrice());
-
             pst.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -99,6 +99,7 @@ public class DatabaseController {
     public static void createStocks(Stock stock){
             String sql = "INSERT INTO stocks (ticket, lowestPrice, highestPrice, currentClosingPrice, volume, openingPrice) Values (?, ?, ?, ?, ?, ?)";
             try {
+                //this should really call the create stock method instead of implementing it again
                 Connection con = DriverManager.getConnection(url+ "stock", user, password);
                 PreparedStatement pst = con.prepareStatement(sql);
                 if (pst != null) {
