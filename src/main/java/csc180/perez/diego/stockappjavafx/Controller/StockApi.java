@@ -94,6 +94,7 @@ public class StockApi {
             }
         }
         for (Stock stock : stockMap.values()) {
+            DatabaseController.createStocks(stock);
         }
     }
 
