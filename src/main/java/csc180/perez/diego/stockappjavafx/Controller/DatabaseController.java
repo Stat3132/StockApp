@@ -110,7 +110,7 @@ public class DatabaseController {
                     pst.setDouble(5, stock.getVolume());
                     pst.setDouble(6, stock.getOpeningPrice());
                     pst.executeUpdate();
-                    System.out.println("User created correctly");
+                    System.out.println("Stock created correctly");
                 }
                 else {
                     System.out.println("Failed to establish connection");
