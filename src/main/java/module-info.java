@@ -10,4 +10,6 @@ module csc180.perez.diego.stockappjavafx {
     opens csc180.perez.diego.stockappjavafx to javafx.fxml;
     exports csc180.perez.diego.stockappjavafx.Controller;//test
     exports csc180.perez.diego.stockappjavafx;
+    exports csc180.perez.diego.stockappjavafx.UTIL;
+    opens csc180.perez.diego.stockappjavafx.Controller to javafx.fxml;
 }
