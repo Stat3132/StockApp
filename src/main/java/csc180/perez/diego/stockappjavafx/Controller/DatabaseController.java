@@ -97,23 +97,39 @@ public class DatabaseController {
     }
 
     public static void createStocks(Stock stock){
-            String sql = "INSERT INTO stocks (ticket, lowestPrice, highestPrice, currentClosingPrice, volume, openingPrice) Values (?, ?, ?, ?, ?, ?)";
+
             try {
-                //this should really call the create stock method instead of implementing it again
                 Connection con = DriverManager.getConnection(url, user, password);
-                PreparedStatement pst = con.prepareStatement(sql);
-                if (pst != null) {
-                    pst.setString(1, stock.getTicket());
-                    pst.setDouble(2, stock.getLowestPrice());
-                    pst.setDouble(3, stock.getHighestPrice());
-                    pst.setDouble(4, stock.getCurrentClosingPrice());
-                    pst.setDouble(5, stock.getVolume());
-                    pst.setDouble(6, stock.getOpeningPrice());
-                    pst.executeUpdate();
-                    System.out.println("User created correctly");
+                String testIfStockExists = "select * from stocks where ticket = ?";
+                PreparedStatement preparedStatement = con.prepareStatement(testIfStockExists);
+                preparedStatement.setString(1, stock.getTicket());
+                ResultSet ifStockExistsResults = preparedStatement.executeQuery();
+                if(ifStockExistsResults.isBeforeFirst()){
+                    String updateStock = "update stocks set lowestPrice = ?, highestPrice = ?, currentClosingPrice = ?, volume = ?, openingPrice = ? where ticket = ?";
+                    preparedStatement = con.prepareStatement(updateStock);
+                    preparedStatement.setDouble(1, stock.getLowestPrice());
+                    preparedStatement.setDouble(2, stock.getHighestPrice());
+                    preparedStatement.setDouble(3, stock.getCurrentClosingPrice());
+                    preparedStatement.setDouble(4, stock.getVolume());
+                    preparedStatement.setDouble(5, stock.getOpeningPrice());
+                    preparedStatement.setString(6, stock.getTicket());
+                    preparedStatement.executeUpdate();
+                    System.out.println("Stock Updated");
                 }
                 else {
-                    System.out.println("Failed to establish connection");
+                    String sql = "INSERT INTO stocks (ticket, lowestPrice, highestPrice, currentClosingPrice, volume, openingPrice) Values (?, ?, ?, ?, ?, ?)";
+
+                    PreparedStatement pst = con.prepareStatement(sql);
+                    if (pst != null) {
+                        pst.setString(1, stock.getTicket());
+                        pst.setDouble(2, stock.getLowestPrice());
+                        pst.setDouble(3, stock.getHighestPrice());
+                        pst.setDouble(4, stock.getCurrentClosingPrice());
+                        pst.setDouble(5, stock.getVolume());
+                        pst.setDouble(6, stock.getOpeningPrice());
+                        pst.executeUpdate();
+                        System.out.println("Stock Created");
+                }
                 }
                 } catch(SQLException e){
                     throw new RuntimeException(e);
