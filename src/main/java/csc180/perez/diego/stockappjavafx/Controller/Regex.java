@@ -21,7 +21,7 @@ public class Regex {
 
     public boolean isValidFirstName(String name) {
         Matcher matcher = null;
-        String humanNameRegex = "([a-zA-Z'-]+)";
+        String humanNameRegex = "([A-Z]{1}+[a-z]{0,19})";
 
         matcher = matchyMatchy(name, humanNameRegex);
         if (matcher.matches()) {
@@ -32,7 +32,7 @@ public class Regex {
 
     public boolean isValidLastName(String name) {
         Matcher matcher = null;
-        String humanNameRegex = "([a-zA-Z'-]+)";
+        String humanNameRegex = "([A-Z]{1}+[a-z]{0,19})+($|\\s)+( |[A-Z]{1}+[a-z]{0,19})?";
 
         matcher = matchyMatchy(name, humanNameRegex);
         if (matcher.matches()) {
@@ -45,7 +45,7 @@ public class Regex {
     public boolean isValidEmailAddress(String email) {
         Matcher matcher = null;
 
-        String regexEmail = "[A-Za-z]+[a-zA-Z\\d]?@+[A-Za-z]+[a-zA-Z\\d]{1,}.+[A-Za-z0-9]{3,4}$";
+        String regexEmail = "([A-z]{1}+[A-Za-z0-9\\_\\.]+@)+([A-z]{1,}\\.)+([A-z]{3,4})";
         matcher = matchyMatchy(email, regexEmail);
         if (matcher.matches()) {
             return true;
