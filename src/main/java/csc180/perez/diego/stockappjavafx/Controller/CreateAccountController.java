@@ -6,11 +6,14 @@
  */
 package csc180.perez.diego.stockappjavafx.Controller;
 
+import csc180.perez.diego.stockappjavafx.Model.Person;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+
+import java.sql.SQLException;
 
 public class CreateAccountController {
 
@@ -50,8 +53,18 @@ public class CreateAccountController {
     }
 
     @FXML
-    void onFinishClick(MouseEvent event) {
-
+    void onFinishClick(MouseEvent event){
+        DatabaseController databaseController = new DatabaseController();
+        if(databaseController.isUsernameAvailable(txtUserName.getText())) {
+            Person person = new Person(txtFirstName.getText(), txtLastName.getText(), txtPhoneNumber.getText(), Integer.parseInt(txtAge.getText()), txtEmail.getText(), txtPassword.getText(), txtUserName.getText());
+            databaseController.createPerson(person);
+            System.out.println("Made Account");
+        }
+        else {
+            if(lblErrorMessage != null)
+            lblErrorMessage.setVisible(true);
+            System.out.println("error creating user");
+        }
     }
 
 }
