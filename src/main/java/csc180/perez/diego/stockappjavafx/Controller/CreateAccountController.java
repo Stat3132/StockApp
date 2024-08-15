@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class CreateAccountController {
@@ -48,8 +49,8 @@ public class CreateAccountController {
     private TextField txtUserName;
 
     @FXML
-    void onBackClick(MouseEvent event) {
-
+    void onBackClick(MouseEvent event) throws IOException {
+        ChangeScene.changeScene(event, "StartingScreen.fxml");
     }
 
     @FXML
