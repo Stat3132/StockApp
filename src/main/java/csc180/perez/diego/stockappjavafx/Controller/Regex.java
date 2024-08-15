@@ -10,20 +10,20 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Regex {
-    private Matcher matching(String strLine, String strRegex) {
-        Pattern pattern = null;
-        Matcher matcher = null;
+    private Matcher matchyMatchy(String strLine, String strRegex) {
+        Pattern p = null;
+        Matcher m = null;
 
-        pattern = Pattern.compile(strRegex);
-        matcher = pattern.matcher(strLine);
-        return matcher;
+        p = Pattern.compile(strRegex);
+        m = p.matcher(strLine);
+        return m;
     }
 
     public boolean isValidFirstName(String name) {
         Matcher matcher = null;
-        String humanNameRegex = "([a-zA-Z'-]+)";
+        String humanNameRegex = "([A-Z]{1}+[a-z]{0,19})";
 
-        matcher = matching(name, humanNameRegex);
+        matcher = matchyMatchy(name, humanNameRegex);
         if (matcher.matches()) {
             return true;
         }
@@ -32,9 +32,9 @@ public class Regex {
 
     public boolean isValidLastName(String name) {
         Matcher matcher = null;
-        String humanNameRegex = "([a-zA-Z'-]+)";
+        String humanNameRegex = "([A-Z]{1}+[a-z]{0,19})+($|\\s)+( |[A-Z]{1}+[a-z]{0,19})?";
 
-        matcher = matching(name, humanNameRegex);
+        matcher = matchyMatchy(name, humanNameRegex);
         if (matcher.matches()) {
             return true;
         }
@@ -45,8 +45,8 @@ public class Regex {
     public boolean isValidEmailAddress(String email) {
         Matcher matcher = null;
 
-        String regexEmail = "[A-Za-z]+[a-zA-Z\\d]?@+[A-Za-z]+[a-zA-Z\\d]{1,}.+[A-Za-z0-9]{3,4}$";
-        matcher = matching(email, regexEmail);
+        String regexEmail = "([A-z]{1}+[A-Za-z0-9\\_\\.]+@)+([A-z]{1,}\\.)+([A-z]{3,4})";
+        matcher = matchyMatchy(email, regexEmail);
         if (matcher.matches()) {
             return true;
         } else{
@@ -59,23 +59,23 @@ public class Regex {
         String regex = null;
 
         regex = "[A-Z]"; //Min uppercase
-        matcher = matching(password, regex);
+        matcher = matchyMatchy(password, regex);
         if (countGroups(matcher) < minUpper) return false;
 
         regex = "[a-z]"; //Min lowercase
-        matcher = matching(password, regex);
+        matcher = matchyMatchy(password, regex);
         if (countGroups(matcher) < minLower) return false;
 
         regex = "[^ ]"; //Min length
-        matcher = matching(password, regex);
+        matcher = matchyMatchy(password, regex);
         if (countGroups(matcher) < minLength) return false;
 
         regex = "[\\d]"; // number count
-        matcher = matching(password, regex);
+        matcher = matchyMatchy(password, regex);
         if (countGroups(matcher) < minNumeric) return false;
 
         regex = "[\\W]"; //Min symbols
-        matcher = matching(password, regex);
+        matcher = matchyMatchy(password, regex);
         if (countGroups(matcher) < minSymbols) return false;
 
         return true;
@@ -85,7 +85,7 @@ public class Regex {
         Matcher matcher = null;
         String ageRegex = "\\b(1[0-2][0-9]|13[0-5]|[1-9][0-9]?|[1-9])\\b";
 
-        matcher = matching(age, ageRegex);
+        matcher = matchyMatchy(age, ageRegex);
         if (matcher.matches()) {
             return true;
         } else{
@@ -96,7 +96,7 @@ public class Regex {
     public boolean isValidUserName(String userName){
         Matcher matcher = null;
         String userNameRegex = "^(?=(.*\\w)).{5,12}$";
-        matcher = matching(userName, userNameRegex);
+        matcher = matchyMatchy(userName, userNameRegex);
         if (matcher.matches()) {
             return true;
         }else {
