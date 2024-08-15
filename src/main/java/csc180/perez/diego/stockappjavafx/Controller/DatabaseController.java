@@ -44,6 +44,8 @@ public class DatabaseController {
                     "Email VARCHAR(45) NULL," +
                     "PhoneNumber VARCHAR(45) NULL," +
                     "Age INT NULL," +
+                    "Username VARCHAR(45) NULL," +
+                    "Password VARCHAR(45) NULL," +
                     "PRIMARY KEY (`Id`));";
             st.executeUpdate(sql);
             sql = "CREATE TABLE if not exists stocks("+
@@ -63,7 +65,7 @@ public class DatabaseController {
     public void createPerson(Person person){
         try{
             Connection con = DriverManager.getConnection(url, user, password);
-            String sql = "INSERT INTO people (FirstName, LastName, Email, PhoneNumber, Age) VALUES (?, ?, ?, ?, ?);";
+            String sql = "INSERT INTO people (FirstName, LastName, Email, PhoneNumber, Age, Username, Password) VALUES (?, ?, ?, ?, ?, ?, ?);";
             PreparedStatement pst = con.prepareStatement(sql);
 
             pst.setString(1, person.getFirstName());
@@ -71,10 +73,25 @@ public class DatabaseController {
             pst.setString(3, person.getEmail());
             pst.setString(4, person.getPhoneNumber());
             pst.setInt(5, person.getAge());
+            pst.setString(6, person.getUserName());
+            pst.setString(7, person.getPassword());
 
             pst.executeUpdate();
         } catch (SQLException exception) {
             exception.printStackTrace();
+        }
+    }
+    public boolean isUsernameAvailable(String username) {
+        Connection con = null;
+        try {
+            con = DriverManager.getConnection(url, user, password);
+            String sql = "select * from people where username = ?";
+            PreparedStatement preparedStatement = con.prepareStatement(sql);
+            preparedStatement.setString(1, username);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            return !resultSet.isBeforeFirst();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -97,23 +114,39 @@ public class DatabaseController {
     }
 
     public static void createStocks(Stock stock){
-            String sql = "INSERT INTO stocks (ticket, lowestPrice, highestPrice, currentClosingPrice, volume, openingPrice) Values (?, ?, ?, ?, ?, ?)";
+
             try {
-                //this should really call the create stock method instead of implementing it again
                 Connection con = DriverManager.getConnection(url, user, password);
-                PreparedStatement pst = con.prepareStatement(sql);
-                if (pst != null) {
-                    pst.setString(1, stock.getTicket());
-                    pst.setDouble(2, stock.getLowestPrice());
-                    pst.setDouble(3, stock.getHighestPrice());
-                    pst.setDouble(4, stock.getCurrentClosingPrice());
-                    pst.setDouble(5, stock.getVolume());
-                    pst.setDouble(6, stock.getOpeningPrice());
-                    pst.executeUpdate();
-                    System.out.println("Stock created correctly");
+                String testIfStockExists = "select * from stocks where ticket = ?";
+                PreparedStatement preparedStatement = con.prepareStatement(testIfStockExists);
+                preparedStatement.setString(1, stock.getTicket());
+                ResultSet ifStockExistsResults = preparedStatement.executeQuery();
+                if(ifStockExistsResults.isBeforeFirst()){
+                    String updateStock = "update stocks set lowestPrice = ?, highestPrice = ?, currentClosingPrice = ?, volume = ?, openingPrice = ? where ticket = ?";
+                    preparedStatement = con.prepareStatement(updateStock);
+                    preparedStatement.setDouble(1, stock.getLowestPrice());
+                    preparedStatement.setDouble(2, stock.getHighestPrice());
+                    preparedStatement.setDouble(3, stock.getCurrentClosingPrice());
+                    preparedStatement.setDouble(4, stock.getVolume());
+                    preparedStatement.setDouble(5, stock.getOpeningPrice());
+                    preparedStatement.setString(6, stock.getTicket());
+                    preparedStatement.executeUpdate();
+                    System.out.println("Stock Updated");
                 }
                 else {
-                    System.out.println("Failed to establish connection");
+                    String sql = "INSERT INTO stocks (ticket, lowestPrice, highestPrice, currentClosingPrice, volume, openingPrice) Values (?, ?, ?, ?, ?, ?)";
+
+                    PreparedStatement pst = con.prepareStatement(sql);
+                    if (pst != null) {
+                        pst.setString(1, stock.getTicket());
+                        pst.setDouble(2, stock.getLowestPrice());
+                        pst.setDouble(3, stock.getHighestPrice());
+                        pst.setDouble(4, stock.getCurrentClosingPrice());
+                        pst.setDouble(5, stock.getVolume());
+                        pst.setDouble(6, stock.getOpeningPrice());
+                        pst.executeUpdate();
+                        System.out.println("Stock Created");
+                }
                 }
                 } catch(SQLException e){
                     throw new RuntimeException(e);

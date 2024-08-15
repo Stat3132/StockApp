@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: black; -fx-border-color: red; -fx-border-width: 4px;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CSC180.Perez.Diego.Controller.CreateAccountController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: black; -fx-border-color: red; -fx-border-width: 4px;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="csc180.perez.diego.stockappjavafx.Controller.CreateAccountController">
    <children>
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="138.0" layoutY="14.0" prefHeight="54.0" prefWidth="325.0" text="Create Account" textAlignment="CENTER" textFill="RED">
          <font>

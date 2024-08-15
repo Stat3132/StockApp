@@ -5,6 +5,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
+import java.io.IOException;
+
 public class StockUIController {
 
     @FXML
@@ -20,8 +22,8 @@ public class StockUIController {
     private TextField txtUserName;
 
     @FXML
-    void onCreateAccountClick(MouseEvent event) {
-
+    void onCreateAccountClick(MouseEvent event) throws IOException {
+        ChangeScene.changeScene(event, "StockSimCreateAccount.fxml");
     }
 
     @FXML
