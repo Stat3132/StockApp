@@ -27,8 +27,8 @@ public class StockUIController {
     }
 
     @FXML
-    void onLogInClick(MouseEvent event) {
-
+    void onLogInClick(MouseEvent event) throws IOException {
+        ChangeScene.changeScene(event, "MainMenu.fxml");
     }
 
 }
