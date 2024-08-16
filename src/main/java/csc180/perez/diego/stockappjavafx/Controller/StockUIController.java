@@ -1,6 +1,5 @@
 package csc180.perez.diego.stockappjavafx.Controller;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -28,7 +27,7 @@ public class StockUIController {
     }
 
     @FXML
-    protected void  onLogInClick(ActionEvent event) throws IOException {
+    protected void  onLogInClick(MouseEvent event) throws IOException {
         while (true) {
             if (!txtUserName.getText().isEmpty() && !txtPassword.getText().isEmpty()){
                 String[] databasePassword = DatabaseController.loginUser(txtUserName.getText());

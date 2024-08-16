@@ -52,7 +52,7 @@ public class StockSearchController {
     @FXML
     void initialize() {
         lblStockName.setText(stockData[0]);
-        lblStockPrice.setText(stockData[6]);
+        lblStockPrice.setText(stockData[5]);
     }
 
 }
