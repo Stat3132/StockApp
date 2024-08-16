@@ -2,6 +2,7 @@ package csc180.perez.diego.stockappjavafx.Controller;
 
 import csc180.perez.diego.stockappjavafx.Model.Person;
 import csc180.perez.diego.stockappjavafx.Model.Stock;
+import javafx.scene.control.TextField;
 
 
 import java.sql.*;
@@ -260,9 +261,34 @@ public class DatabaseController {
             }
         }
 
+    public static String[] stockInfo(TextField ticker) {
+        String sql = "SELECT lowestPrice, highestPrice, currentClosingPrice, volume, openingPrice from stock.stocks where ticket = ?";
+        try {
+            Connection con = DriverManager.getConnection(url, user, password);
+            PreparedStatement pst = con.prepareStatement(sql);
+            pst.setString(1, ticker.getText());
+            ResultSet result = pst.executeQuery();
+            while (result.next()) {
+                String lowestPrice = result.getString("lowestPrice");
+                String highestPrice = result.getString("highestPrice");
+                String currentClosingPrice = result.getString("currentClosingPrice");
+                String volume = result.getString("volume");
+                String openingPrice = result.getString("openingPrice");
+                String[] stockInfo = {ticker.toString(), lowestPrice, highestPrice, currentClosingPrice, volume, openingPrice};
+                return stockInfo;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+
+        }
+        return null;
+    }
+
         public boolean isUsernameAvailable(String username) {
         return getPersonId(username) == -1;
     }
+
     }
 
 

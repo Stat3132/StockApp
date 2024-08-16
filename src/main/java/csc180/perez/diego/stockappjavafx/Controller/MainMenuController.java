@@ -39,7 +39,12 @@ public class MainMenuController {
 
     @FXML
     void onSearchClick(MouseEvent event) throws IOException {
-        ChangeScene.changeScene(event, "StockSearch.fxml");
+        if (!txtStockSearch.getText().isEmpty()){
+            String[] stockInfo = DatabaseController.stockInfo(txtStockSearch);
+            StockSearchController.stockData = stockInfo;
+            ChangeScene.changeScene(event, "StockSearch.fxml");
+        }
+        txtStockSearch.setText("INVALID STOCK");
     }
 
 }
