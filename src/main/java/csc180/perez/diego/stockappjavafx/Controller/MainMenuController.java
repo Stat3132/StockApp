@@ -6,6 +6,7 @@
  */
 package csc180.perez.diego.stockappjavafx.Controller;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -33,7 +34,7 @@ public class MainMenuController {
 
     @FXML
     void onExitClick(MouseEvent event) {
-
+        Platform.exit();
     }
 
     @FXML
