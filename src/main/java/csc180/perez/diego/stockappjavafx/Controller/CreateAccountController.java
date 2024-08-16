@@ -52,6 +52,57 @@ public class CreateAccountController {
     void onBackClick(MouseEvent event) throws IOException {
         ChangeScene.changeScene(event, "StartingScreen.fxml");
     }
+    @FXML
+    protected void onKeyInputForFirstName() {
+        if (Regex.isValidFirstName(txtFirstName.getText())) {
+            txtFirstName.setStyle("-fx-text-inner-color: green;");
+        } else {
+            txtFirstName.setStyle("-fx-text-inner-color: red;");
+        }
+    }
+    @FXML
+    protected void onKeyInputForLastName() {
+        if (Regex.isValidLastName(txtLastName.getText())) {
+            txtLastName.setStyle("-fx-text-inner-color: green;");
+        } else {
+            txtLastName.setStyle("-fx-text-inner-color: red;");
+        }
+
+    }
+    @FXML
+    protected void onKeyInputForEmail() {
+        if (Regex.isValidEmailAddress(txtEmail.getText())) {
+            txtEmail.setStyle("-fx-text-inner-color: green;");
+        } else {
+            txtEmail.setStyle("-fx-text-inner-color: red;");
+        }
+    }
+    @FXML
+    protected void onKeyInputForAge(){
+        if(Regex.isValidAge(txtAge.getText())){
+            txtAge.setStyle("-fx-text-inner-color: green;");
+        } else {
+            txtAge.setStyle("-fx-text-inner-color: red;");
+        }
+    }
+
+    @FXML
+    protected void onKeyInputForUserName() {
+        if (Regex.isValidUserName(txtUserName.getText())){
+            txtUserName.setStyle("-fx-text-inner-color: green;");
+        } else {
+            txtUserName.setStyle("-fx-text-inner-color: red;");
+        }
+    }
+    @FXML
+    protected void onKeyInputForPassword() {
+       if (Regex.validatePasswordComplexity(txtPassword.getText(), 8, 1, 3, 4, 1)){
+           txtPassword.setStyle("-fx-text-inner-color: green");
+       } else {
+           txtPassword.setStyle("-fx-text-inner-color: red");
+       }
+    }
+
 
     @FXML
     void onFinishClick(MouseEvent event){
