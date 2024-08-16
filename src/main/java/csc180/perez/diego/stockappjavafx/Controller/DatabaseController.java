@@ -215,6 +215,7 @@ public class DatabaseController {
             while (result.next()) {
                 String password = result.getString("Password");
                 String[] userInfo = {password, username};
+                System.out.println(userInfo);
                 return userInfo;
             }
 
