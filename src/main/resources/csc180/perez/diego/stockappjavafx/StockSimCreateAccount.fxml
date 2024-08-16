@@ -19,25 +19,25 @@
             <Font name="System Bold" size="16.0" />
          </font>
       </Label>
-      <TextField fx:id="txtFirstName" alignment="CENTER" layoutX="89.0" layoutY="109.0" prefHeight="25.0" prefWidth="149.0" />
+      <TextField fx:id="txtFirstName" alignment="CENTER" layoutX="89.0" layoutY="109.0" onKeyTyped="#onKeyInputForFirstName" prefHeight="25.0" prefWidth="149.0" />
       <Label alignment="CENTER" layoutX="115.0" layoutY="134.0" prefHeight="25.0" prefWidth="98.0" text="Last Name" textFill="RED">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
       </Label>
-      <TextField fx:id="txtLastName" alignment="CENTER" layoutX="90.0" layoutY="159.0" prefHeight="25.0" prefWidth="149.0" />
+      <TextField fx:id="txtLastName" alignment="CENTER" layoutX="90.0" layoutY="159.0" onKeyTyped="#onKeyInputForLastName" prefHeight="25.0" prefWidth="149.0" />
       <Label alignment="CENTER" layoutX="114.0" layoutY="188.0" prefHeight="25.0" prefWidth="98.0" text="Email" textFill="RED">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
       </Label>
-      <TextField fx:id="txtEmail" alignment="CENTER" layoutX="89.0" layoutY="213.0" prefHeight="25.0" prefWidth="149.0" />
+      <TextField fx:id="txtEmail" alignment="CENTER" layoutX="89.0" layoutY="213.0" onKeyTyped="#onKeyInputForEmail" prefHeight="25.0" prefWidth="149.0" />
       <Label alignment="CENTER" layoutX="106.0" layoutY="244.0" prefHeight="25.0" prefWidth="120.0" text="Phone Number" textFill="RED">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
       </Label>
-      <TextField fx:id="txtPhoneNumber" alignment="CENTER" layoutX="89.0" layoutY="269.0" prefHeight="25.0" prefWidth="149.0" />
+      <TextField fx:id="txtPhoneNumber" alignment="CENTER" layoutX="89.0" layoutY="269.0" onKeyTyped="#onKeyInputForPhoneNumber" prefHeight="25.0" prefWidth="149.0" />
       <Label alignment="CENTER" layoutX="414.0" layoutY="147.0" prefHeight="25.0" prefWidth="98.0" text="Username" textFill="RED">
          <font>
             <Font name="System Bold" size="16.0" />
@@ -48,14 +48,14 @@
             <Font name="System Bold" size="16.0" />
          </font>
       </Label>
-      <TextField fx:id="txtAge" alignment="CENTER" layoutX="89.0" layoutY="319.0" prefHeight="25.0" prefWidth="149.0" />
-      <TextField fx:id="txtUserName" alignment="CENTER" layoutX="389.0" layoutY="176.0" prefHeight="25.0" prefWidth="149.0" />
+      <TextField fx:id="txtAge" alignment="CENTER" layoutX="89.0" layoutY="319.0" onKeyTyped="#onKeyInputForAge" prefHeight="25.0" prefWidth="149.0" />
+      <TextField fx:id="txtUserName" alignment="CENTER" layoutX="389.0" layoutY="176.0" onKeyTyped="#onKeyInputForUserName" prefHeight="25.0" prefWidth="149.0" />
       <Label alignment="CENTER" layoutX="415.0" layoutY="213.0" prefHeight="25.0" prefWidth="98.0" text="Password" textFill="RED">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
       </Label>
-      <TextField fx:id="txtPassword" alignment="CENTER" layoutX="390.0" layoutY="244.0" prefHeight="25.0" prefWidth="149.0" />
+      <TextField fx:id="txtPassword" alignment="CENTER" layoutX="390.0" layoutY="244.0" onKeyTyped="#onKeyInputForPassword" prefHeight="25.0" prefWidth="149.0" />
       <Button fx:id="btnFinish" alignment="CENTER" layoutX="432.0" layoutY="278.0" mnemonicParsing="false" onMouseClicked="#onFinishClick" prefHeight="32.0" prefWidth="62.0" style="-fx-background-color: lightgray; -fx-border-width: 3px; -fx-border-color: red;" text="Finish" textAlignment="CENTER" textFill="RED">
          <opaqueInsets>
             <Insets />
