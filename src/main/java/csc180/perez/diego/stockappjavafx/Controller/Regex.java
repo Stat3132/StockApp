@@ -10,7 +10,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Regex {
-    private Matcher matchyMatchy(String strLine, String strRegex) {
+    private static Matcher matchyMatchy(String strLine, String strRegex) {
         Pattern p = null;
         Matcher m = null;
 
@@ -19,7 +19,7 @@ public class Regex {
         return m;
     }
 
-    public boolean isValidFirstName(String name) {
+    public static boolean isValidFirstName(String name) {
         Matcher matcher = null;
         String humanNameRegex = "([A-Z]{1}+[a-z]{0,19})";
 
@@ -30,7 +30,7 @@ public class Regex {
         return false;
     }
 
-    public boolean isValidLastName(String name) {
+    public static boolean isValidLastName(String name) {
         Matcher matcher = null;
         String humanNameRegex = "([A-Z]{1}+[a-z]{0,19})+($|\\s)+( |[A-Z]{1}+[a-z]{0,19})?";
 
@@ -42,7 +42,7 @@ public class Regex {
     }
 
 
-    public boolean isValidEmailAddress(String email) {
+    public static boolean isValidEmailAddress(String email) {
         Matcher matcher = null;
 
         String regexEmail = "([A-z]{1}+[A-Za-z0-9\\_\\.]+@)+([A-z]{1,}\\.)+([A-z]{3,4})";
@@ -54,7 +54,7 @@ public class Regex {
         }
     }
 
-    public boolean validatePasswordComplexity(String password, int minLength, int minUpper, int minLower, int minNumeric, int minSymbols) {
+    public static boolean validatePasswordComplexity(String password, int minLength, int minUpper, int minLower, int minNumeric, int minSymbols) {
         Matcher matcher = null;
         String regex = null;
 
@@ -81,7 +81,7 @@ public class Regex {
         return true;
     }
 
-    public boolean isValidAge(String age){
+    public static boolean isValidAge(String age){
         Matcher matcher = null;
         String ageRegex = "\\b(1[0-2][0-9]|13[0-5]|[1-9][0-9]?|[1-9])\\b";
 
@@ -93,9 +93,9 @@ public class Regex {
         }
     }
 
-    public boolean isValidUserName(String userName){
+    public static boolean isValidUserName(String userName){
         Matcher matcher = null;
-        String userNameRegex = "^(?=(.*\\w)).{5,12}$";
+        String userNameRegex = "^(?=.*[A-Z]{1,})(?=.*[a-z]{3,})(?=.*[0-9]{0,})(?=.*[^A-Za-z0-9]{0,}).{5,}$";
         matcher = matchyMatchy(userName, userNameRegex);
         if (matcher.matches()) {
             return true;

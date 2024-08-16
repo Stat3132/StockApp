@@ -8,21 +8,16 @@ package csc180.perez.diego.stockappjavafx.Model;
 
 public class Portfolio  {
 
-    private String portfolioName;
     private double  portfolioPrice;
     private csc180.perez.diego.stockappjavafx.Model.Stock[] stocks;
 
     private int purchasePrice;
 
-    public static void Add(){
+    public static void buy(){
+
+    }
+    public static void sell(){
 
     }
 
-    public static void Update(){
-
-    }
-
-    public static void Delete(){
-
-    }
 }

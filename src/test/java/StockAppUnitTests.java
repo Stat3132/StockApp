@@ -14,7 +14,7 @@ public class StockAppUnitTests {
     private String apiKey = "6yr9w0ir7v0gGtri_v4LXi1ehRoAMpQd";
     @Test
     public void testValidFirstNameMethod(){
-        String validHumanName = "john";
+        String validHumanName = "John";
         Regex solver = new Regex();
 
         assertTrue(solver.isValidFirstName(validHumanName));
@@ -35,7 +35,7 @@ public class StockAppUnitTests {
     }
     @Test
     public void testValidLastNameMethod(){
-        String validHumanName = "ferguson";
+        String validHumanName = "Ferguson";
         Regex solver = new Regex();
 
         assertTrue(solver.isValidLastName(validHumanName));
