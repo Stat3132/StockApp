@@ -25,7 +25,7 @@ public class StockApi {
     public void accessingAPI() {
         System.out.println("Test to Change");
         stockList.addAll(Arrays.asList(StockTicker.values()));
-        for (int currentStockBeingIteratedOver = 0; currentStockBeingIteratedOver < 5; currentStockBeingIteratedOver++) {
+        for (int currentStockBeingIteratedOver = 0; currentStockBeingIteratedOver < 2; currentStockBeingIteratedOver++) {
             HttpGet request = new HttpGet("https://api.polygon.io/v2/aggs/ticker/" + stockList.get(currentStockBeingIteratedOver) + "/range/1/day/" + mostRecentStockTime + "?apiKey=6yr9w0ir7v0gGtri_v4LXi1ehRoAMpQd");
             CloseableHttpClient httpClient = HttpClients.createDefault();
             try (CloseableHttpResponse response = httpClient.execute(request)) {
