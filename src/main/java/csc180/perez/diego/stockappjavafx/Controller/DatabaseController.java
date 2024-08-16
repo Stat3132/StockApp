@@ -11,7 +11,7 @@ public class DatabaseController {
     static String user = "root";
     static String password = "test";
 
-    public void testConnection() throws SQLException { //uses version to check if the app is connected to the database
+    public static void testConnection() throws SQLException { //uses version to check if the app is connected to the database
         String sql = "SELECT VERSION()";
 
 
@@ -26,7 +26,7 @@ public class DatabaseController {
         }
 
 
-    public void createDatabase(){
+    public static void createDatabase(){
         try{
             Connection con = DriverManager.getConnection(url, user, password);
             Statement st = con.createStatement();
@@ -58,11 +58,18 @@ public class DatabaseController {
                     "openingPrice DOUBLE NULL,"+
                     "PRIMARY KEY (`idstocks`));";
             st.executeUpdate(sql);
+            sql = "CREATE TABLE if not exists userstocks("+
+                    "id INT NOT NULL AUTO_INCREMENT,"+
+                    "personId int not null," +
+                    "stockId int not null,"+
+                    "amountOwned double null,"+
+                    "PRIMARY KEY (`id`));";
+            st.executeUpdate(sql);
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
     }
-    public void createPerson(Person person){
+    public static void createPerson(Person person){
         try{
             Connection con = DriverManager.getConnection(url, user, password);
             String sql = "INSERT INTO people (FirstName, LastName, Email, PhoneNumber, Age, Username, Password) VALUES (?, ?, ?, ?, ?, ?, ?);";
@@ -81,37 +88,48 @@ public class DatabaseController {
             exception.printStackTrace();
         }
     }
-    public boolean isUsernameAvailable(String username) {
-        Connection con = null;
+    public static void createUserStockRelationship(String username, String ticket,  double stockAmountOwned){
+        int personId = getPersonId(username);
+        int stockId = getStockId(ticket);
         try {
-            con = DriverManager.getConnection(url, user, password);
-            String sql = "select * from people where username = ?";
-            PreparedStatement preparedStatement = con.prepareStatement(sql);
-            preparedStatement.setString(1, username);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            return !resultSet.isBeforeFirst();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public void createStock(Stock s){
-        try{
             Connection con = DriverManager.getConnection(url, user, password);
-            String sql = "INSERT INTO stocks (ticket, lowestPrice, highestPrice, currentClosingPrice, volume, openingPrice) VALUES (?, ?, ?, ?, ? ,?);";
-            PreparedStatement pst = con.prepareStatement(sql);
+            if (personId != -1 && stockId != -1) {
+                String checkIfRelationshipExists = "select * from userstocks where personId = ? and stockId = ?";
+                PreparedStatement preparedStatementCheckRelationships = con.prepareStatement(checkIfRelationshipExists);
+                preparedStatementCheckRelationships.setInt(1, personId);
+                preparedStatementCheckRelationships.setInt(2, stockId);
+                ResultSet resultSetRelationship = preparedStatementCheckRelationships.executeQuery();
+                if(resultSetRelationship.isBeforeFirst()){
+                    String updateUserStockRelationship = "update userstocks set amountOwned = ? where personId = ? and stockId = ?";
+                    PreparedStatement preparedUpdateUserStockRelationships = con.prepareStatement(updateUserStockRelationship);
+                    preparedUpdateUserStockRelationships.setDouble(1, stockAmountOwned);
+                    preparedUpdateUserStockRelationships.setInt(2, personId);
+                    preparedUpdateUserStockRelationships.setInt(3, stockId);
+                    preparedUpdateUserStockRelationships.executeUpdate();
+                    System.out.println("updated user stock relationship");
+                }else {
+                    String insertUserStockRelationship = "INSERT INTO userstocks (personId, stockId, amountOwned) VALUES (?, ?, ?);";
+                    PreparedStatement pst = con.prepareStatement(insertUserStockRelationship);
 
-            pst.setString(1, s.getTicket());
-            pst.setDouble(2, s.getLowestPrice());
-            pst.setDouble(3, s.getHighestPrice());
-            pst.setDouble(4, s.getCurrentClosingPrice());
-            pst.setDouble(5, s.getVolume());
-            pst.setDouble(6, s.getOpeningPrice());
-            pst.executeUpdate();
+                    pst.setInt(1, personId);
+                    pst.setInt(2, stockId);
+                    pst.setDouble(3, stockAmountOwned);
+                    pst.executeUpdate();
+                    System.out.println("Made user relationship");
+                }
+            } else {
+                if (personId == -1) {
+                    System.out.println("error in username or user does not exist");
+                }
+                if (stockId == -1) {
+                    System.out.println("error in ticket or ticket does not exist");
+                }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
 
     public static void createStocks(Stock stock){
 
@@ -153,6 +171,46 @@ public class DatabaseController {
                 }
 
         }
+
+    public static int getPersonId(String username){
+        try {
+            Connection connection = DriverManager.getConnection(url, user, password);
+            String sql = "select * from people where username = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, username);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if(resultSet.next()){
+                return resultSet.getInt(1);
+            }
+            else
+            {
+                return -1;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+        public static int getStockId(String ticket){
+            try {
+                Connection connection = DriverManager.getConnection(url, user, password);
+                String sql = "select * from stocks where ticket = ?";
+                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                preparedStatement.setString(1, ticket);
+                ResultSet resultSet = preparedStatement.executeQuery();
+                if (resultSet.next()) {
+                    return resultSet.getInt(1);
+                } else {
+                    return -1;
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        public boolean isUsernameAvailable(String username) {
+        return getPersonId(username) == -1;
+    }
     }
 
 

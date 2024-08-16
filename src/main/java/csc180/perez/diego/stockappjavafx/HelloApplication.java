@@ -19,8 +19,7 @@ public class HelloApplication extends Application {
         stage.show();
     }
     public static void main(String[] args) {
-        DatabaseController db = new DatabaseController();
-        db.createDatabase();
+        DatabaseController.createDatabase();
         StockApi api = new StockApi();
         api.accessingAPI();
         launch();
