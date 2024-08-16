@@ -166,4 +166,17 @@ public class StockAppUnitTests {
         String APIKey = "6yr9w0ir7v0gGtri_v4LXi1ehRoAMpQd";
         assertEquals(apiKey, APIKey);
     }
+
+    @Test
+    public void testValidPhoneNumber(){
+        String validPhoneNumber = "555-123-5678";
+        Regex solver = new Regex();
+        assertTrue(solver.isValidPhoneNumber(validPhoneNumber));
+    }
+    @Test
+    public void testInvalidPhoneNumber(){
+        String validPhoneNumber = "5555-123-5678";
+        Regex solver = new Regex();
+        assertFalse(solver.isValidPhoneNumber(validPhoneNumber));
+    }
 }

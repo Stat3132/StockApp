@@ -78,6 +78,15 @@ public class CreateAccountController {
         }
     }
     @FXML
+    protected void onKeyInputForPhoneNumber() {
+        if (Regex.isValidPhoneNumber(txtPhoneNumber.getText())) {
+            txtPhoneNumber.setStyle("-fx-text-inner-color: green;");
+        } else {
+            txtPhoneNumber.setStyle("-fx-text-inner-color: red;");
+        }
+    }
+
+    @FXML
     protected void onKeyInputForAge(){
         if(Regex.isValidAge(txtAge.getText())){
             txtAge.setStyle("-fx-text-inner-color: green;");
@@ -105,12 +114,13 @@ public class CreateAccountController {
 
 
     @FXML
-    void onFinishClick(MouseEvent event){
+    void onFinishClick(MouseEvent event) throws IOException {
         DatabaseController databaseController = new DatabaseController();
         if(databaseController.isUsernameAvailable(txtUserName.getText())) {
             Person person = new Person(txtFirstName.getText(), txtLastName.getText(), txtPhoneNumber.getText(), Integer.parseInt(txtAge.getText()), txtEmail.getText(), txtPassword.getText(), txtUserName.getText());
             databaseController.createPerson(person);
             System.out.println("Made Account");
+            ChangeScene.changeScene(event, "StartingScreen.fxml");
         }
         else {
             if(lblErrorMessage != null)

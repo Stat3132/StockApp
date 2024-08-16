@@ -11,12 +11,12 @@ import java.util.regex.Pattern;
 
 public class Regex {
     private static Matcher matchyMatchy(String strLine, String strRegex) {
-        Pattern p = null;
-        Matcher m = null;
+        Pattern pattern = null;
+        Matcher matcher = null;
 
-        p = Pattern.compile(strRegex);
-        m = p.matcher(strLine);
-        return m;
+        pattern = Pattern.compile(strRegex);
+        matcher = pattern.matcher(strLine);
+        return matcher;
     }
 
     public static boolean isValidFirstName(String name) {
@@ -103,6 +103,18 @@ public class Regex {
             return false;
         }
     }
+
+    public static boolean isValidPhoneNumber(String phoneNumber){
+        Matcher matcher = null;
+        String phoneNumberRegex = "^(\\(\\d{3}\\)\\s?|\\d{3}[-.\\s]?)\\d{3}[-.\\s]?\\d{4}$";
+        matcher = matchyMatchy(phoneNumber, phoneNumberRegex);
+        if (matcher.matches()) {
+            return true;
+        } else{
+            return false;
+        }
+    }
+
     private static int countGroups(Matcher matcher){
         int count = 0;
         while (matcher.find()) {
