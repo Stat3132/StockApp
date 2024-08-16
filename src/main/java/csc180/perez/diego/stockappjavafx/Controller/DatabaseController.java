@@ -275,7 +275,7 @@ public class DatabaseController {
                 String currentClosingPrice = result.getString("currentClosingPrice");
                 String volume = result.getString("volume");
                 String openingPrice = result.getString("openingPrice");
-                String[] stockInfo = {ticker.toString(), lowestPrice, highestPrice, currentClosingPrice, volume, openingPrice};
+                String[] stockInfo = {ticker.getText(), lowestPrice, highestPrice, currentClosingPrice, volume, openingPrice};
                 return stockInfo;
             }
 
