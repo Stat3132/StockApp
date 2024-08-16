@@ -28,7 +28,7 @@ public class StockUIController {
     }
 
     @FXML
-    protected void  onLoginClick(ActionEvent event) throws IOException {
+    protected void  onLogInClick(ActionEvent event) throws IOException {
         while (true) {
             if (!txtUserName.getText().isEmpty() && !txtPassword.getText().isEmpty()){
                 String[] databasePassword = DatabaseController.loginUser(txtUserName.getText());
