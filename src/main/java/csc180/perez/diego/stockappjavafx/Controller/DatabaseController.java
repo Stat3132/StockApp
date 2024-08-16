@@ -172,6 +172,58 @@ public class DatabaseController {
 
         }
 
+    public static double getUserStockAmount(String username, String ticket)
+    {
+        int personId = getPersonId(username);
+        int stockId = getStockId(ticket);
+        try {
+            Connection connection = DriverManager.getConnection(url, user, password);
+            String checkIfRelationshipExists = "select amountOwned from userstocks where personId = ? and stockId = ?";
+            PreparedStatement preparedStatementCheckRelationships = connection.prepareStatement(checkIfRelationshipExists);
+            preparedStatementCheckRelationships.setInt(1, personId);
+            preparedStatementCheckRelationships.setInt(2, stockId);
+            ResultSet resultSetRelationship = preparedStatementCheckRelationships.executeQuery();
+            if(resultSetRelationship.next())
+            {
+                return resultSetRelationship.getDouble(1);
+            }
+            else
+            {
+                if (personId == -1) {
+                    System.out.println("error in username or user does not exist");
+                }
+                if (stockId == -1) {
+                    System.out.println("error in ticket or ticket does not exist");
+                }
+                return -1;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public static String[] loginUser(String username) {
+        String sql = "SELECT Password, Username from stock.people where Username = ?";
+        try {
+            Connection con = DriverManager.getConnection(url, user, password);
+            PreparedStatement pst = con.prepareStatement(sql);
+            pst.setString(1, username);
+            ResultSet result = pst.executeQuery();
+            while (result.next()) {
+                String password = result.getString("Password");
+                String[] userInfo = {password, username};
+                return userInfo;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+
+        }
+        return null;
+    }
+
     public static int getPersonId(String username){
         try {
             Connection connection = DriverManager.getConnection(url, user, password);
