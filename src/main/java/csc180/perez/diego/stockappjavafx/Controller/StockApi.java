@@ -26,16 +26,6 @@ public class StockApi {
 
 
     //region original accessingApi
-    /**
-     * Accesses the API to retrieve stock data.
-     *
-     * This method sends an HTTP GET request to the specified URL to access the API. It retrieves stock data for each stock ticker in the `stockList` array. The stock data is then
-     *  processed and stored in the `stockMap`. If specified, the method also creates historical stock data and stores it in the `historicalStockMap`.
-     *
-     * @see StockApi
-     *
-     * @since 1.0
-     */
     public static void  accessingAPI() {
         enumOfStockNames.addAll(Arrays.asList(StockTicker.values()));
         for (int currentStock = 0; currentStock < 5; currentStock++) {
@@ -65,13 +55,6 @@ public class StockApi {
     //endregion
 
     //region new accessingAPI
-    /**
-     * Accesses the API to retrieve stock data based on the given parameters.
-     *
-     * @param stockTicker         The stock ticker for which to retrieve data.
-     * @param timeSpan            The time span for which to retrieve data. Valid values are "month", "week", or "year".
-     * @param timeBeforeCurrentDay The number of time units (months, weeks, or years) before the current day.
-     */
     public static void accessingAPI(StockTicker stockTicker, String timeSpan, int timeBeforeCurrentDay){
         //todo one week, 1 month, 3 months, six months, one year, two years
         LocalDate timePeriodBefore = null;
@@ -118,13 +101,6 @@ public class StockApi {
     //endregion
 
     //region stock builder
-    /**
-     * Builds a stock map based on the provided stock ticker, list of stock data, and a flag to indicate whether to make historical data.
-     *
-     * @param stock              The stock ticker for which to build the map.
-     * @param listOfStockData    The list of stock data containing information about the stock.
-     * @param makeHistoricalData A boolean flag indicating whether to create historical data.
-     */
     public static void buildStockMap(StockTicker stock, List<Map<String, Object>> listOfStockData, boolean makeHistoricalData){
         Stock newStock = null;
         int period = 0;
@@ -203,14 +179,6 @@ public class StockApi {
     //endregion
 
     //region checkIfIntegerValue
-    /**
-     * Checks if the value of the given Map entry is an Integer.
-     * If it is, converts the value to a double and returns it.
-     * Otherwise, returns the value as a double.
-     *
-     * @param entry The Map entry to check.
-     * @return The value of the entry as a double.
-     */
     public static double checkIfInteger(Map.Entry<String, Object> entry){
         if(entry.getValue().getClass() == Integer.class){
             Number entryValue = (Number) entry.getValue();
