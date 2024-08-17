@@ -2,7 +2,6 @@ package csc180.perez.diego.stockappjavafx.Controller;
 
 import csc180.perez.diego.stockappjavafx.Model.Stock;
 import csc180.perez.diego.stockappjavafx.UTIL.StockTicker;
-import com.fasterxml.jackson.databind.JsonNode;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -16,19 +15,33 @@ import java.util.*;
 
 public class StockApi {
 
-    LocalDate currentDay = LocalDate.now();
-    LocalDate currentDayMinusOne = currentDay.minusDays(1);
-    String mostRecentStockTime = currentDayMinusOne + "/" + currentDayMinusOne;
-    Map<String, Stock> stockMap = new HashMap<>();
-    ArrayList<StockTicker> stockList = new ArrayList<>();
+    private static final LocalDate currentDay = LocalDate.now();
+    private static LocalDate currentDayMinusOne = currentDay.minusDays(1);
+    private static String mostRecentStockTime = currentDayMinusOne + "/" + currentDayMinusOne;
+    private static Map<String, Stock> stockValuesMap = new HashMap<>();
+    private static ArrayList<StockTicker> enumOfStockNames = new ArrayList<>();
 
-    public void accessingAPI() {
-        System.out.println("Test to Change");
-        stockList.addAll(Arrays.asList(StockTicker.values()));
-        for (int currentStockBeingIteratedOver = 0; currentStockBeingIteratedOver < 2; currentStockBeingIteratedOver++) {
-            HttpGet request = new HttpGet("https://api.polygon.io/v2/aggs/ticker/" + stockList.get(currentStockBeingIteratedOver) + "/range/1/day/" + mostRecentStockTime + "?apiKey=6yr9w0ir7v0gGtri_v4LXi1ehRoAMpQd");
+    public static Map<String, List<Map<String, Stock>>> historicalStockValueMap = new HashMap<>();
+    public static String timePeriod = "";
+
+
+    //region original accessingApi
+    /**
+     * Accesses the API to retrieve stock data.
+     *
+     * This method sends an HTTP GET request to the specified URL to access the API. It retrieves stock data for each stock ticker in the `stockList` array. The stock data is then
+     *  processed and stored in the `stockMap`. If specified, the method also creates historical stock data and stores it in the `historicalStockMap`.
+     *
+     * @see StockApi
+     *
+     * @since 1.0
+     */
+    public static void  accessingAPI() {
+        enumOfStockNames.addAll(Arrays.asList(StockTicker.values()));
+        for (int currentStock = 0; currentStock < 5; currentStock++) {
+            HttpGet stockAPIRequest = new HttpGet("https://api.polygon.io/v2/aggs/ticker/" + enumOfStockNames.get(currentStock) + "/range/1/day/" + mostRecentStockTime + "?apiKey=6yr9w0ir7v0gGtri_v4LXi1ehRoAMpQd");
             CloseableHttpClient httpClient = HttpClients.createDefault();
-            try (CloseableHttpResponse response = httpClient.execute(request)) {
+            try (CloseableHttpResponse response = httpClient.execute(stockAPIRequest)) {
                 String responseBody = EntityUtils.toString(response.getEntity());
                 ObjectMapper stockData = new ObjectMapper();
                 Map<String, Object> mappedStockData = stockData.readValue(responseBody, Map.class);
@@ -36,70 +49,179 @@ public class StockApi {
                 if (listOfStockData == null) {
                     currentDayMinusOne = currentDayMinusOne.minusDays(2);
                     mostRecentStockTime = currentDayMinusOne + "/" + currentDayMinusOne;
-                    currentStockBeingIteratedOver--;
+                    currentStock--;
                     continue;
                 }
-                double doubledOpeningPrice;
-                double doubledLowestPrice;
-                double doubledHighestPrice;
-                double doubledClosingPrice;
-                double doubledVolume;
-                long longTransactionalValue;
-                if (listOfStockData.getFirst().get("o") == Integer.class) {
-                    Number openingPrice = (Number) listOfStockData.getFirst().get("o");
-                    doubledOpeningPrice = openingPrice.doubleValue();
-                } else {
-                    doubledOpeningPrice = (double) listOfStockData.getFirst().get("o");
+                buildStockMap(enumOfStockNames.get(currentStock), listOfStockData, false);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        for (Stock stockValues: stockValuesMap.values()) {
+            DatabaseController.createStocks(stockValues);
+            System.out.println(stockValues.toString());
+        }
+    }
+    //endregion
+
+    //region new accessingAPI
+    /**
+     * Accesses the API to retrieve stock data based on the given parameters.
+     *
+     * @param stockTicker         The stock ticker for which to retrieve data.
+     * @param timeSpan            The time span for which to retrieve data. Valid values are "month", "week", or "year".
+     * @param timeBeforeCurrentDay The number of time units (months, weeks, or years) before the current day.
+     */
+    public static void accessingAPI(StockTicker stockTicker, String timeSpan, int timeBeforeCurrentDay){
+        //todo one week, 1 month, 3 months, six months, one year, two years
+        LocalDate timePeriodBefore = null;
+        switch(timeSpan.toLowerCase()){
+            case "month" -> {
+                if (timeBeforeCurrentDay == 6) {
+                    timePeriodBefore = currentDay.minusMonths(timeBeforeCurrentDay);
+                }else if (timeBeforeCurrentDay == 3){
+                    timePeriodBefore = currentDay.minusMonths(3);
+                }else{
+                    timePeriodBefore = currentDay.minusMonths(1);
                 }
-                if (listOfStockData.getFirst().get("l").getClass() == Integer.class) {
-                    Number lowestPrice = (Number) listOfStockData.getFirst().get("l");
-                    doubledLowestPrice = lowestPrice.doubleValue();
-                } else {
-                    doubledLowestPrice = (double) listOfStockData.getFirst().get("l");
+            }
+            case "week" ->
+                    timePeriodBefore = currentDay.minusWeeks(1);
+            case "year" -> {
+                if(timeBeforeCurrentDay == 1){
+                    timePeriodBefore = currentDay.minusYears(1);
+                }else if(timeBeforeCurrentDay == 2){
+                    timePeriodBefore = currentDay.minusYears(2);
+                }else{
+                    timePeriodBefore = currentDay.minusYears(1);
                 }
-                if (listOfStockData.getFirst().get("h").getClass() == Integer.class) {
-                    Number lowestPrice = (Number) listOfStockData.getFirst().get("h");
-                    doubledHighestPrice = lowestPrice.doubleValue();
-                } else {
-                    doubledHighestPrice = (double) listOfStockData.getFirst().get("h");
+            }
+            default -> {
+                System.out.println("timespan must be month, week, or year");
+                return;
+            }
+        }
+        String formattedApi = String.format("https://api.polygon.io/v2/aggs/ticker/%s/range/1/%s/%s/%s?apiKey=6yr9w0ir7v0gGtri_v4LXi1ehRoAMpQd", stockTicker.toString(),timeSpan.toLowerCase(),timePeriodBefore,currentDayMinusOne.toString());
+        HttpGet apiRequest = new HttpGet(formattedApi);
+        CloseableHttpClient apiClient = HttpClients.createDefault();
+        try (CloseableHttpResponse response = apiClient.execute(apiRequest)) {
+            String responseBody = EntityUtils.toString(response.getEntity());
+            ObjectMapper stockData = new ObjectMapper();
+            Map<String, Object> mappedStockData = stockData.readValue(responseBody, Map.class);
+            List<Map<String, Object>> listOfStockData = (List<Map<String, Object>>) mappedStockData.get("results");
+            timePeriod = timeSpan.toLowerCase();
+            buildStockMap(stockTicker, listOfStockData, true);
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    //endregion
+
+    //region stock builder
+    /**
+     * Builds a stock map based on the provided stock ticker, list of stock data, and a flag to indicate whether to make historical data.
+     *
+     * @param stock              The stock ticker for which to build the map.
+     * @param listOfStockData    The list of stock data containing information about the stock.
+     * @param makeHistoricalData A boolean flag indicating whether to create historical data.
+     */
+    public static void buildStockMap(StockTicker stock, List<Map<String, Object>> listOfStockData, boolean makeHistoricalData){
+        Stock newStock = null;
+        int period = 0;
+        Map<String, Stock> stockPrices = new HashMap<>();
+        List<Map<String, Stock>> periodStockList = new ArrayList<>();
+        for (Map<String, Object> stockData : listOfStockData) {
+            double doubledOpeningPrice = 0;
+            double doubledLowestPrice = 0;
+            double doubledHighestPrice = 0;
+            double doubledClosingPrice = 0;
+            double doubledVolume = 0;
+            long longTransactionalValue = 0;
+            for (Map.Entry<String, Object> entry : stockData.entrySet()) {
+                switch (entry.getKey().toLowerCase()) {
+                    case "v" -> {
+                        doubledVolume = checkIfInteger(entry);
+                    }
+                    case "o" -> {
+                        doubledOpeningPrice = checkIfInteger(entry);
+                    }
+                    case "l" -> {
+                        doubledLowestPrice = checkIfInteger(entry);
+                    }
+                    case "h" -> {
+                        doubledHighestPrice = checkIfInteger(entry);
+                    }
+                    case "c" -> {
+                        doubledClosingPrice = checkIfInteger(entry);
+                    }
+                    case "t" -> {
+                        if (entry.getValue().getClass() == Integer.class) {
+                            Number transactions = (Number) entry.getValue();
+                            longTransactionalValue = transactions.longValue();
+                        } else {
+                            longTransactionalValue = (long) entry.getValue();
+                        }
+                    }
+                    default -> {
+                        System.out.println("invalid key");
+                    }
                 }
-                if (listOfStockData.getFirst().get("c").getClass() == Integer.class) {
-                    Number lowestPrice = (Number) listOfStockData.getFirst().get("c");
-                    doubledClosingPrice = lowestPrice.doubleValue();
-                } else {
-                   doubledClosingPrice = (double) listOfStockData.getFirst().get("c");
-                }
-                if (listOfStockData.getFirst().get("v").getClass() == Integer.class) {
-                    Number lowestPrice = (Number) listOfStockData.getFirst().get("v");
-                    doubledVolume = lowestPrice.doubleValue();
-                } else {
-                    doubledVolume = (double) listOfStockData.getFirst().get("v");
-                }
-                if (listOfStockData.getFirst().get("t").getClass() == Integer.class){
-                    Number transactions = (Number) listOfStockData.getFirst().get("t");
-                    longTransactionalValue = transactions.longValue();
-                } else {
-                   longTransactionalValue = (long) listOfStockData.getFirst().get("t");
-                }
-                Stock newStock = new Stock(
-                        stockList.get(currentStockBeingIteratedOver).toString(),
+            }
+            if(makeHistoricalData){
+                period++;
+                newStock = new Stock(
+                        stock.toString(),
                         doubledLowestPrice,
                         doubledHighestPrice,
                         doubledClosingPrice,
                         doubledVolume,
                         doubledOpeningPrice,
                         longTransactionalValue);
-                stockMap.put(stockList.get(currentStockBeingIteratedOver).toString(), newStock);
-            } catch (IOException e) {
-                e.printStackTrace();
+                stockPrices.put(String.format("%s: %s", timePeriod.toLowerCase(), period), newStock);
+
+            }else{
+                newStock = new Stock(
+                        stock.toString(),
+                        doubledLowestPrice,
+                        doubledHighestPrice,
+                        doubledClosingPrice,
+                        doubledVolume,
+                        doubledOpeningPrice,
+                        longTransactionalValue);
+                stockValuesMap.put(stock.toString(), newStock);
             }
         }
-        for (Stock stock : stockMap.values()) {
-            DatabaseController.createStocks(stock);
+        if(makeHistoricalData){
+            periodStockList.add(stockPrices);
+            historicalStockValueMap.put(stock.toString(), periodStockList);
+        }else{
+            stockValuesMap.forEach((key, value) -> {
+                DatabaseController.createStocks(value);
+            });
         }
     }
+    //endregion
+
+    //region checkIfIntegerValue
+    /**
+     * Checks if the value of the given Map entry is an Integer.
+     * If it is, converts the value to a double and returns it.
+     * Otherwise, returns the value as a double.
+     *
+     * @param entry The Map entry to check.
+     * @return The value of the entry as a double.
+     */
+    public static double checkIfInteger(Map.Entry<String, Object> entry){
+        if(entry.getValue().getClass() == Integer.class){
+            Number entryValue = (Number) entry.getValue();
+            return entryValue.doubleValue();
+        }else{
+            return (double) entry.getValue();
+        }
+    }
+    //endregion
 
     public void stockSearch(String stockName) {
     }
-
 }
+
