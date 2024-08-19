@@ -6,8 +6,10 @@
  */
 package csc180.perez.diego.stockappjavafx.Controller;
 
+import csc180.perez.diego.stockappjavafx.UTIL.StockTicker;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -31,7 +33,12 @@ public class MainMenuController {
 
     @FXML
     private TextField txtStockSearch;
+    static String userName;
 
+    @FXML
+    void initialize() {
+        lblHelloUser.setText("Hello " + userName);
+    }
     @FXML
     void onExitClick(MouseEvent event) {
         Platform.exit();
@@ -39,12 +46,19 @@ public class MainMenuController {
 
     @FXML
     void onSearchClick(MouseEvent event) throws IOException {
-        if (!txtStockSearch.getText().isEmpty()){
+        if (txtStockSearch.getText().equalsIgnoreCase("NVDA")|| txtStockSearch.getText().equalsIgnoreCase("LUMN") || txtStockSearch.getText().equalsIgnoreCase("INTC") || txtStockSearch.getText().equalsIgnoreCase("PLTR") || txtStockSearch.getText().equalsIgnoreCase("LYFT")) {
             String[] stockInfo = DatabaseController.stockInfo(txtStockSearch);
             StockSearchController.stockData = stockInfo;
             ChangeScene.changeScene(event, "StockSearch.fxml");
+        } else {
+            txtStockSearch.setText("");
+            txtStockSearch.setPromptText("INVALID STOCK");
         }
-        txtStockSearch.setText("INVALID STOCK");
+    }
+
+    @FXML
+    void onBuyClicked(MouseEvent event) {
+
     }
 
 }

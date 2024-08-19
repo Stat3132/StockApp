@@ -6,6 +6,7 @@
  */
 package csc180.perez.diego.stockappjavafx.Controller;
 
+import csc180.perez.diego.stockappjavafx.Model.Stock;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -52,7 +53,20 @@ public class StockSearchController {
     @FXML
     void initialize() {
         lblStockName.setText(stockData[0]);
-        lblStockPrice.setText(stockData[4]);
+        lblStockPrice.setText(stockData[5]);
+        double[] stockHistoryInDouble = new double[6];
+        int oneValueBefore = 0;
+        for (int i = 1; i < stockHistoryInDouble.length + 1; i++) {
+            double convertedValues = Double.parseDouble(stockData[i]);
+            if (oneValueBefore == 5) {
+                stockHistoryInDouble[oneValueBefore] = Long.parseLong(stockData[i]);
+                break;
+            }
+            stockHistoryInDouble[oneValueBefore] = convertedValues;
+            oneValueBefore++;
+        }
+        Stock stockHistory = new Stock(stockData[0], stockHistoryInDouble[0], stockHistoryInDouble[1], stockHistoryInDouble[2], stockHistoryInDouble[3], stockHistoryInDouble[4], (long)stockHistoryInDouble[5]);
+        lblStockHistory.setText(stockHistory.toString());
     }
 
 }

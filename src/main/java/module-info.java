@@ -5,6 +5,8 @@ module csc180.perez.diego.stockappjavafx {
     requires com.fasterxml.jackson.databind;
     requires org.apache.httpcomponents.httpcore;
     requires java.sql;
+    requires java.desktop;
+    requires jdk.compiler;
 
 
     opens csc180.perez.diego.stockappjavafx to javafx.fxml;

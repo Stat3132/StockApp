@@ -57,6 +57,7 @@ public class DatabaseController {
                     "currentClosingPrice DOUBLE NULL,"+
                     "volume DOUBLE NULL,"+
                     "openingPrice DOUBLE NULL,"+
+                    "amountOfTransactions BIGINT NULL,"+
                     "PRIMARY KEY (`idstocks`));";
             st.executeUpdate(sql);
             sql = "CREATE TABLE if not exists userstocks("+
@@ -141,19 +142,20 @@ public class DatabaseController {
                 preparedStatement.setString(1, stock.getTicket());
                 ResultSet ifStockExistsResults = preparedStatement.executeQuery();
                 if(ifStockExistsResults.isBeforeFirst()){
-                    String updateStock = "update stocks set lowestPrice = ?, highestPrice = ?, currentClosingPrice = ?, volume = ?, openingPrice = ? where ticket = ?";
+                    String updateStock = "update stocks set lowestPrice = ?, highestPrice = ?, currentClosingPrice = ?, volume = ?, openingPrice = ?, amountOfTransactions = ? where ticket = ?";
                     preparedStatement = con.prepareStatement(updateStock);
                     preparedStatement.setDouble(1, stock.getLowestPrice());
                     preparedStatement.setDouble(2, stock.getHighestPrice());
                     preparedStatement.setDouble(3, stock.getCurrentClosingPrice());
                     preparedStatement.setDouble(4, stock.getVolume());
                     preparedStatement.setDouble(5, stock.getOpeningPrice());
-                    preparedStatement.setString(6, stock.getTicket());
+                    preparedStatement.setLong(6,stock.getAmountOfTransactions());
+                    preparedStatement.setString(7, stock.getTicket());
                     preparedStatement.executeUpdate();
                     System.out.println("Stock Updated");
                 }
                 else {
-                    String sql = "INSERT INTO stocks (ticket, lowestPrice, highestPrice, currentClosingPrice, volume, openingPrice) Values (?, ?, ?, ?, ?, ?)";
+                    String sql = "INSERT INTO stocks (ticket, lowestPrice, highestPrice, currentClosingPrice, volume, openingPrice, amountOfTransactions) Values (?, ?, ?, ?, ?, ?, ?)";
 
                     PreparedStatement pst = con.prepareStatement(sql);
                     if (pst != null) {
@@ -163,6 +165,7 @@ public class DatabaseController {
                         pst.setDouble(4, stock.getCurrentClosingPrice());
                         pst.setDouble(5, stock.getVolume());
                         pst.setDouble(6, stock.getOpeningPrice());
+                        pst.setDouble(7, stock.getAmountOfTransactions());
                         pst.executeUpdate();
                         System.out.println("Stock Created");
                 }
@@ -263,7 +266,7 @@ public class DatabaseController {
         }
 
     public static String[] stockInfo(TextField ticker) {
-        String sql = "SELECT lowestPrice, highestPrice, currentClosingPrice, volume, openingPrice from stock.stocks where ticket = ?";
+        String sql = "SELECT lowestPrice, highestPrice, currentClosingPrice, volume, openingPrice, amountOfTransactions from stock.stocks where ticket = ?";
         try {
             Connection con = DriverManager.getConnection(url, user, password);
             PreparedStatement pst = con.prepareStatement(sql);
@@ -275,7 +278,8 @@ public class DatabaseController {
                 String currentClosingPrice = result.getString("currentClosingPrice");
                 String volume = result.getString("volume");
                 String openingPrice = result.getString("openingPrice");
-                String[] stockInfo = {ticker.getText(), lowestPrice, highestPrice, currentClosingPrice, volume, openingPrice};
+                String amountOfTransactions = result.getString("amountOfTransactions");
+                String[] stockInfo = {ticker.getText(), lowestPrice, highestPrice, currentClosingPrice, volume, openingPrice, amountOfTransactions};
                 return stockInfo;
             }
 

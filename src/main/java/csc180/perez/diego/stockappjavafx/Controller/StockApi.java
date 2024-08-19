@@ -130,7 +130,7 @@ public class StockApi {
                     case "c" -> {
                         doubledClosingPrice = checkIfInteger(entry);
                     }
-                    case "t" -> {
+                    case "n" -> {
                         if (entry.getValue().getClass() == Integer.class) {
                             Number transactions = (Number) entry.getValue();
                             longTransactionalValue = transactions.longValue();

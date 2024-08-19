@@ -1,5 +1,6 @@
 package csc180.perez.diego.stockappjavafx.Controller;
 
+import com.sun.tools.javac.Main;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -32,6 +33,7 @@ public class StockUIController {
             if (!txtUserName.getText().isEmpty() && !txtPassword.getText().isEmpty()){
                 String[] databasePassword = DatabaseController.loginUser(txtUserName.getText());
                 if (txtPassword.getText().equals(databasePassword[0])) {
+                    MainMenuController.userName = databasePassword[1];
                     ChangeScene.changeScene(event, "MainMenu.fxml");
                 } else {
                     break;
