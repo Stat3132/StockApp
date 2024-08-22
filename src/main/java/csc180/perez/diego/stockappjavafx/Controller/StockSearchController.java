@@ -6,10 +6,12 @@
  */
 package csc180.perez.diego.stockappjavafx.Controller;
 
+import csc180.perez.diego.stockappjavafx.Model.Person;
 import csc180.perez.diego.stockappjavafx.Model.Stock;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
@@ -32,11 +34,15 @@ public class StockSearchController {
 
     @FXML
     private Label lblStockPrice;
+    @FXML
+    private TextField amountToBuy;
+    static String userName;
 
     static String stockData[];
     double[] stockHistoryInDouble = new double[6];
     @FXML
     void initialize() {
+
         lblStockName.setText(stockData[0]);
         lblStockPrice.setText(stockData[5]);
         int oneValueBefore = 0;
@@ -59,9 +65,17 @@ public class StockSearchController {
 
     @FXML
     void onBuyClick(MouseEvent event) {
-        DatabaseController.createUserStockRelationship(MainMenuController.userName, stockData[0], stockHistoryInDouble[4]);
-    }
+        if (amountToBuy.getText() != null) {
+            double amountBought = Double.parseDouble(amountToBuy.getText());
+            double totalAmountBought = stockHistoryInDouble[4] * amountBought;
+            System.out.println(totalAmountBought);
+           double amountOfPerson = DatabaseController.getPersonCurrentMoney(userName);
+           double fullyCalculatedAmount = amountOfPerson - totalAmountBought;
+           DatabaseController.updatePersonTotalAmount(userName, fullyCalculatedAmount);
 
+           // DatabaseController.createUserStockRelationship(MainMenuController.userName, stockData[0], totalAmountBought);
+        }
+    }
     @FXML
     void onSellClick(MouseEvent event) {
 

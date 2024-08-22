@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
@@ -20,7 +21,7 @@
             <Insets />
          </opaqueInsets>
       </Button>
-      <Button fx:id="btnBuy" alignment="CENTER" layoutX="467.0" layoutY="139.0" mnemonicParsing="false" onMouseClicked="#onBuyClick" prefHeight="32.0" prefWidth="62.0" style="-fx-background-color: lightgray; -fx-border-width: 3px; -fx-border-color: red; -fx-padding: 0;" text="Buy" textAlignment="CENTER" textFill="RED">
+      <Button fx:id="btnBuy" alignment="CENTER" layoutX="467.0" layoutY="73.0" mnemonicParsing="false" onMouseClicked="#onBuyClick" prefHeight="32.0" prefWidth="62.0" style="-fx-background-color: lightgray; -fx-border-width: 3px; -fx-border-color: red; -fx-padding: 0;" text="Buy" textAlignment="CENTER" textFill="RED">
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
@@ -45,5 +46,6 @@
             <Font size="16.0" />
          </font>
       </Label>
+      <TextField fx:id="amountToBuy" layoutX="423.0" layoutY="42.0" promptText="Amount to buy:" />
    </children>
 </Pane>
