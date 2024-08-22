@@ -34,10 +34,12 @@ public class MainMenuController {
     @FXML
     private TextField txtStockSearch;
     static String userName;
+    static double userCurrentBalance;
 
     @FXML
     void initialize() {
         lblHelloUser.setText("Hello " + userName);
+        lblUserPortfolio.setText("Current Balance: $" + userCurrentBalance);
     }
     @FXML
     void onExitClick(MouseEvent event) {

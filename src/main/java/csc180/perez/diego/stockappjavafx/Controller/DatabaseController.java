@@ -8,12 +8,12 @@ import javafx.scene.control.TextField;
 import java.sql.*;
 
 public class DatabaseController {
-//    static String url = "jdbc:mysql://localhost:3306/";
-//    static String user = "root";
-//    static String password = "test";
-    static String url = "jdbc:mysql://stockaws.cxquk06g8ywu.us-east-2.rds.amazonaws.com:3306/";
-    static String user = "admin";
-    static String password = "password";
+    static String url = "jdbc:mysql://localhost:3306/";
+    static String user = "root";
+    static String password = "test";
+    //static String url = "jdbc:mysql://stockaws.cxquk06g8ywu.us-east-2.rds.amazonaws.com:3306/";
+    //static String user = "admin";
+    //static String password = "password";
 
     public static void testConnection() throws SQLException { //uses version to check if the app is connected to the database
         String sql = "SELECT VERSION()";
@@ -215,19 +215,18 @@ public class DatabaseController {
     }
 
     public static String[] loginUser(String username) {
-        String sql = "SELECT Password, Username from stock.people where Username = ?";
+        String sql = "SELECT Password, Username, CurrentBalance from stock.people where Username = ?";
         try {
-            Connection con = DriverManager.getConnection(url, user, password);
+            Connection con = DriverManager.getConnection(url , user, password);
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setString(1, username);
             ResultSet result = pst.executeQuery();
-            while (result.next()) {
+            if (result.next()) {
                 String password = result.getString("Password");
-                String[] userInfo = {password, username};
-                System.out.println(userInfo);
+                double currentUserBalance = result.getDouble("CurrentBalance");
+                String[] userInfo = {password, username, currentUserBalance + ""};
                 return userInfo;
             }
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
 
