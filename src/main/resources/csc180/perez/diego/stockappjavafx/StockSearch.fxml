@@ -35,7 +35,7 @@
             <Font name="System Bold" size="20.0" />
          </font>
       </Label>
-      <Label alignment="BASELINE_LEFT" layoutX="53.0" layoutY="64.0" prefHeight="50.0" prefWidth="149.0" text="Stock History:" textFill="RED">
+      <Label alignment="BASELINE_LEFT" layoutX="53.0" layoutY="64.0" prefHeight="50.0" prefWidth="149.0" text="Stock Information:" textFill="RED">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
