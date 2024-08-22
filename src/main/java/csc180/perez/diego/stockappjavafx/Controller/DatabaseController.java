@@ -47,6 +47,7 @@ public class DatabaseController {
                     "Age INT NULL," +
                     "Username VARCHAR(45) NULL," +
                     "Password VARCHAR(45) NULL," +
+                    "CurrentBalance Double NULL," +
                     "PRIMARY KEY (`Id`));";
             st.executeUpdate(sql);
             sql = "CREATE TABLE if not exists stocks("+
@@ -74,7 +75,7 @@ public class DatabaseController {
     public static void createPerson(Person person){
         try{
             Connection con = DriverManager.getConnection(url, user, password);
-            String sql = "INSERT INTO people (FirstName, LastName, Email, PhoneNumber, Age, Username, Password) VALUES (?, ?, ?, ?, ?, ?, ?);";
+            String sql = "INSERT INTO people (FirstName, LastName, Email, PhoneNumber, Age, Username, Password, CurrentBalance) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
             PreparedStatement pst = con.prepareStatement(sql);
 
             pst.setString(1, person.getFirstName());
@@ -84,6 +85,7 @@ public class DatabaseController {
             pst.setInt(5, person.getAge());
             pst.setString(6, person.getUserName());
             pst.setString(7, person.getPassword());
+            pst.setDouble(8, person.getAmountOfMoney());
 
             pst.executeUpdate();
         } catch (SQLException exception) {
