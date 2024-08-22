@@ -72,6 +72,7 @@ public class StockSearchController {
            double amountOfPerson = DatabaseController.getPersonCurrentMoney(userName);
            double fullyCalculatedAmount = amountOfPerson - totalAmountBought;
            DatabaseController.updatePersonTotalAmount(userName, fullyCalculatedAmount);
+           MainMenuController.userCurrentBalance = fullyCalculatedAmount;
 
            // DatabaseController.createUserStockRelationship(MainMenuController.userName, stockData[0], totalAmountBought);
         }
