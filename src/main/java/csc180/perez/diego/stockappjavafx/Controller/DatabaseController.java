@@ -82,7 +82,11 @@ public class DatabaseController {
             pst.setString(2, person.getLastName());
             pst.setString(3, person.getEmail());
             pst.setString(4, person.getPhoneNumber());
-            pst.setInt(5, person.getAge());
+            if(person.getAge() < 18 || person.getAge() > 130){
+                System.exit(1);
+            } else {
+                pst.setInt(5, person.getAge());
+            }
             pst.setString(6, person.getUserName());
             pst.setString(7, person.getPassword());
             pst.setDouble(8, person.getAmountOfMoney());
