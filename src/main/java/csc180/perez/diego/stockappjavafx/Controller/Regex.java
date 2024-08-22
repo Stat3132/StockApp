@@ -83,7 +83,7 @@ public class Regex {
 
     public static boolean isValidAge(String age){
         Matcher matcher = null;
-        String ageRegex = "\\b(1[0-2][0-9]|13[0-5]|[1-9][0-9]?|[1-9])\\b";
+        String ageRegex = "^(1[8-9]|[2-9][0-9]|1[01][0-9]|12[0-9]|130)$";
 
         matcher = matchyMatchy(age, ageRegex);
         if (matcher.matches()) {
