@@ -7,36 +7,35 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: lightgray; -fx-border-color: red; -fx-border-width: 4px;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="csc180.perez.diego.stockappjavafx.Controller.MainMenuController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: lightgray; -fx-border-color: blue; -fx-border-width: 6px;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="csc180.perez.diego.stockappjavafx.Controller.MainMenuController">
    <children>
-      <Label fx:id="lblHelloUser" alignment="CENTER" layoutX="12.0" layoutY="24.0" prefHeight="68.0" prefWidth="267.0" text="Hello Username" textAlignment="CENTER" textFill="RED">
+      <Label fx:id="lblHelloUser" alignment="CENTER" layoutX="12.0" layoutY="24.0" prefHeight="68.0" prefWidth="267.0" text="Hello Username" textAlignment="CENTER" textFill="#0008ff">
          <font>
             <Font name="System Bold" size="30.0" />
          </font>
       </Label>
-      <Label fx:id="lblUserPortfolio" alignment="TOP_CENTER" layoutX="57.0" layoutY="135.0" prefHeight="236.0" prefWidth="333.0" style="-fx-border-color: red;" text="User Portfolio" textFill="RED">
+      <Label fx:id="lblUserPortfolio" alignment="TOP_CENTER" layoutX="57.0" layoutY="135.0" prefHeight="236.0" prefWidth="333.0" style="-fx-border-color: blue;" text="User Portfolio" textFill="#0008ff">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="414.0" layoutY="31.0" prefHeight="41.0" prefWidth="102.0" text="Stock Search" textFill="RED">
+      <Label alignment="CENTER" layoutX="414.0" layoutY="31.0" prefHeight="41.0" prefWidth="102.0" text="Stock Search" textFill="#0008ff">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <Label alignment="BASELINE_LEFT" layoutX="42.0" layoutY="91.0" prefHeight="50.0" prefWidth="206.0" text="Current Portfolio:" textFill="RED">
+      <Label alignment="BASELINE_LEFT" layoutX="42.0" layoutY="91.0" prefHeight="50.0" prefWidth="206.0" text="Current Portfolio:" textFill="#0008ff">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
       </Label>
       <TextField fx:id="txtStockSearch" alignment="CENTER" layoutX="390.0" layoutY="66.0" />
-      <Button fx:id="btnSearch" alignment="CENTER" layoutX="434.0" layoutY="100.0" mnemonicParsing="false" onMouseClicked="#onSearchClick" prefHeight="32.0" prefWidth="62.0" style="-fx-background-color: lightgray; -fx-border-width: 3px; -fx-border-color: red; -fx-padding: 0;" text="Search" textAlignment="CENTER" textFill="RED">
+      <Button fx:id="btnSearch" alignment="CENTER" layoutX="434.0" layoutY="100.0" mnemonicParsing="false" onMouseClicked="#onSearchClick" prefHeight="32.0" prefWidth="62.0" style="-fx-background-color: lightgray; -fx-border-width: 3px; -fx-border-color: blue; -fx-padding: 0;" text="Search" textAlignment="CENTER" textFill="#0008ff">
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
       </Button>
-      <Button fx:id="btnExit" alignment="CENTER" layoutX="508.0" layoutY="342.0" mnemonicParsing="false" onMouseClicked="#onExitClick" prefHeight="32.0" prefWidth="62.0" style="-fx-background-color: lightgray; -fx-border-width: 3px; -fx-border-color: red; -fx-padding: 0;" text="Exit" textAlignment="CENTER" textFill="RED">
+      <Button fx:id="btnExit" alignment="CENTER" layoutX="508.0" layoutY="342.0" mnemonicParsing="false" onMouseClicked="#onExitClick" prefHeight="32.0" prefWidth="62.0" style="-fx-background-color: lightgray; -fx-border-width: 3px; -fx-border-color: blue; -fx-padding: 0;" text="Exit" textAlignment="CENTER" textFill="#0008ff">
          <opaqueInsets>
             <Insets />
          </opaqueInsets>

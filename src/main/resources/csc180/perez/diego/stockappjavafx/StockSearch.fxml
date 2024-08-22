@@ -8,40 +8,40 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: lightgray; -fx-border-color: red; -fx-border-width: 4px;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="csc180.perez.diego.stockappjavafx.Controller.StockSearchController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: lightgray; -fx-border-color: blue; -fx-border-width: 6px;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="csc180.perez.diego.stockappjavafx.Controller.StockSearchController">
    <children>
-      <Label fx:id="lblStockName" alignment="CENTER" layoutY="14.0" prefHeight="68.0" prefWidth="238.0" text="Stock Name" textAlignment="CENTER" textFill="RED">
+      <Label fx:id="lblStockName" alignment="CENTER" layoutY="14.0" prefHeight="68.0" prefWidth="238.0" text="Stock Name" textAlignment="CENTER" textFill="#0008ff">
          <font>
             <Font name="System Bold" size="30.0" />
          </font>
       </Label>
       <ImageView fitHeight="68.0" fitWidth="149.0" layoutX="405.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true" />
-      <Button fx:id="btnBack" alignment="CENTER" layoutX="14.0" layoutY="354.0" mnemonicParsing="false" onMouseClicked="#onBackClick" prefHeight="32.0" prefWidth="62.0" style="-fx-background-color: lightgray; -fx-border-width: 3px; -fx-border-color: red; -fx-padding: 0;" text="Back" textAlignment="CENTER" textFill="RED">
+      <Button fx:id="btnBack" alignment="CENTER" layoutX="14.0" layoutY="354.0" mnemonicParsing="false" onMouseClicked="#onBackClick" prefHeight="32.0" prefWidth="62.0" style="-fx-background-color: lightgray; -fx-border-width: 3px; -fx-border-color: blue; -fx-padding: 0;" text="Back" textAlignment="CENTER" textFill="#0008ff">
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
       </Button>
-      <Button fx:id="btnBuy" alignment="CENTER" layoutX="467.0" layoutY="73.0" mnemonicParsing="false" onMouseClicked="#onBuyClick" prefHeight="32.0" prefWidth="62.0" style="-fx-background-color: lightgray; -fx-border-width: 3px; -fx-border-color: red; -fx-padding: 0;" text="Buy" textAlignment="CENTER" textFill="RED">
+      <Button fx:id="btnBuy" alignment="CENTER" layoutX="467.0" layoutY="73.0" mnemonicParsing="false" onMouseClicked="#onBuyClick" prefHeight="32.0" prefWidth="62.0" style="-fx-background-color: lightgray; -fx-border-width: 3px; -fx-border-color: blue; -fx-padding: 0;" text="Buy" textAlignment="CENTER" textFill="#0008ff">
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
       </Button>
-      <Button fx:id="btnSell" alignment="CENTER" layoutX="467.0" layoutY="278.0" mnemonicParsing="false" onMouseClicked="#onSellClick" prefHeight="32.0" prefWidth="62.0" style="-fx-background-color: lightgray; -fx-border-width: 3px; -fx-border-color: red; -fx-padding: 0;" text="Sell" textAlignment="CENTER" textFill="RED">
+      <Button fx:id="btnSell" alignment="CENTER" layoutX="467.0" layoutY="278.0" mnemonicParsing="false" onMouseClicked="#onSellClick" prefHeight="32.0" prefWidth="62.0" style="-fx-background-color: lightgray; -fx-border-width: 3px; -fx-border-color: blue; -fx-padding: 0;" text="Sell" textAlignment="CENTER" textFill="#0008ff">
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
       </Button>
-      <Label fx:id="lblStockPrice" alignment="CENTER" layoutX="419.0" layoutY="200.0" prefHeight="43.0" prefWidth="158.0" text="Stock Price" textAlignment="CENTER" textFill="RED">
+      <Label fx:id="lblStockPrice" alignment="CENTER" layoutX="419.0" layoutY="200.0" prefHeight="43.0" prefWidth="158.0" text="Stock Price" textAlignment="CENTER" textFill="#0008ff">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
       </Label>
-      <Label alignment="BASELINE_LEFT" layoutX="53.0" layoutY="64.0" prefHeight="50.0" prefWidth="149.0" text="Stock Information:" textFill="RED">
+      <Label alignment="BASELINE_LEFT" layoutX="53.0" layoutY="64.0" prefHeight="50.0" prefWidth="149.0" text="Stock Information:" textFill="#0008ff">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
       </Label>
-      <Label fx:id="lblStockHistory" alignment="TOP_CENTER" layoutX="62.0" layoutY="114.0" prefHeight="228.0" prefWidth="330.0" style="-fx-border-color: red;" text="Stock history" textFill="RED">
+      <Label fx:id="lblStockHistory" alignment="TOP_CENTER" layoutX="62.0" layoutY="114.0" prefHeight="228.0" prefWidth="330.0" style="-fx-border-color: blue;" text="Stock Information" textFill="#0008ff">
          <font>
             <Font size="16.0" />
          </font>
