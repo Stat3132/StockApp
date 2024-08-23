@@ -47,10 +47,15 @@
          </font>
       </Label>
       <TextField fx:id="amountToBuy" layoutX="423.0" layoutY="42.0" promptText="Amount to buy:" />
-      <Label fx:id="outcome" layoutX="423.0" layoutY="125.0" text="Outcome:" textFill="#1500ff">
+      <Label fx:id="outcome" layoutX="423.0" layoutY="125.0" text="Outcome:" textFill="#1500ff" wrapText="true">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
+      <Button fx:id="btnStockHistory" alignment="CENTER" layoutX="242.0" layoutY="354.0" mnemonicParsing="false" onMouseClicked="#onStockHistoryClicked" prefHeight="32.0" prefWidth="116.0" style="-fx-background-color: lightgray; -fx-border-width: 3px; -fx-border-color: blue; -fx-padding: 0;" text="Stock History" textAlignment="CENTER" textFill="#0008ff">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </Button>
    </children>
 </Pane>

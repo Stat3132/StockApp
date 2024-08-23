@@ -18,6 +18,7 @@ import java.sql.SQLException;
 
 public class CreateAccountController {
 
+    //region/initializers
     @FXML
     private Button btnBack;
 
@@ -47,11 +48,10 @@ public class CreateAccountController {
 
     @FXML
     private TextField txtUserName;
+    //endregion
 
-    @FXML
-    void onBackClick(MouseEvent event) throws IOException {
-        ChangeScene.changeScene(event, "StartingScreen.fxml");
-    }
+
+    //region/validate info
     @FXML
     protected void onKeyInputForFirstName() {
         if (Regex.isValidFirstName(txtFirstName.getText())) {
@@ -111,8 +111,13 @@ public class CreateAccountController {
            txtPassword.setStyle("-fx-text-inner-color: red");
        }
     }
+    //endregion
 
-
+    //region/button logic
+    @FXML
+    void onBackClick(MouseEvent event) throws IOException {
+        ChangeScene.changeScene(event, "StartingScreen.fxml");
+    }
     @FXML
     void onFinishClick(MouseEvent event) throws IOException {
         DatabaseController databaseController = new DatabaseController();
@@ -128,5 +133,5 @@ public class CreateAccountController {
             System.out.println("error creating user");
         }
     }
-
+    //endregion
 }
