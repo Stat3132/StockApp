@@ -22,29 +22,44 @@ public class MainMenuController {
 
     @FXML
     private Button btnExit;
-
     @FXML
     private Button btnSearch;
-
     @FXML
     private Label lblHelloUser;
-
     @FXML
     private Label lblUserPortfolio;
     @FXML
+    private Label NVDAshare, LUMNshare, INTCshare, PLTRshare, LYFTshare;
+    @FXML
     private Label UserCash;
-
     @FXML
     private TextField txtStockSearch;
     static String userName;
     static double userCurrentBalance;
+    String[] tickerNames = {"NVDA", "LUMN", "INTC", "PLTR", "LYFT"};
+    String[] stockInfo;
 
     @FXML
     void initialize() {
         lblHelloUser.setText("Hello " + userName);
         UserCash.setText("Current Balance: $" + userCurrentBalance);
-        String[] stockInfo = DatabaseController.getUserStockAmount(userName, "NVDA");
-        lblUserPortfolio.setText(stockInfo[1] + ":" +stockInfo[0] + " shares");
+        for (int i = 0; i < tickerNames.length; i++) {
+              stockInfo = DatabaseController.getUserStockAmount(userName, tickerNames[i]);
+              if (i == 0 && stockInfo != null){
+                    NVDAshare.setText(stockInfo[1] + ":" +stockInfo[0] + " shares");
+                } else if (i == 1 && stockInfo != null){
+                    LUMNshare.setText(stockInfo[1] + ":" +stockInfo[0] + " shares");
+                } else if (i == 2 && stockInfo != null){
+                    INTCshare.setText(stockInfo[1] + ":" +stockInfo[0] + " shares");
+                } else if (i == 3 && stockInfo != null){
+                    PLTRshare.setText(stockInfo[1] + ":" +stockInfo[0] + " shares");
+                } else if (i == 4 && stockInfo != null){
+                    LYFTshare.setText(stockInfo[1] + ":" +stockInfo[0] + " shares");
+              }
+        }
+        if (stockInfo == null || stockInfo.length == 0){
+            return;
+        }
 
     }
     @FXML

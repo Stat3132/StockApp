@@ -40,5 +40,30 @@
             <Insets />
          </opaqueInsets>
       </Button>
+      <Label fx:id="NVDAshare" layoutX="73.0" layoutY="177.0" text="Most recent NVDA Share:" textFill="#2200ff">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label fx:id="LUMNshare" layoutX="73.0" layoutY="213.0" text="Most recent LUMN Share:" textFill="#2600ff">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label fx:id="INTCshare" layoutX="73.0" layoutY="245.0" text="Most recent INTC Share:" textFill="#1a00ff">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label fx:id="PLTRshare" layoutX="73.0" layoutY="281.0" text="Most recent PLTR Share:" textFill="#2f00ff">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label fx:id="LYFTshare" layoutX="73.0" layoutY="318.0" text="Most recent LYFT Share:" textFill="#1a00ff">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
    </children>
 </Pane>
