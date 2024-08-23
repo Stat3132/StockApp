@@ -33,7 +33,11 @@ public class StockSearchController {
     private Label lblStockName;
 
     @FXML
-    private Label lblStockPrice, lblOutcome;
+    private Label lblStockPrice;
+
+    @FXML
+    private Label outcome;
+
     @FXML
     private TextField amountToBuy;
     static String userName;
@@ -75,10 +79,10 @@ public class StockSearchController {
             double amountOfPerson = DatabaseController.getPersonCurrentMoney(userName);
             if (amountOfPerson > totalAmountBought) {
                 fullyCalculatedAmount = amountOfPerson - totalAmountBought;
-                lblOutcome.setText("YOU HAVE BOUGHT A STOCK");
+                outcome.setText("YOU HAVE BOUGHT A STOCK");
                 DatabaseController.updatePersonTotalAmount(userName, fullyCalculatedAmount);
             } else {
-                lblOutcome.setText("YOU DO NOT HAVE ENOUGH \n MONEY TO BUY THIS STOCK");
+                outcome.setText("YOU DO NOT HAVE ENOUGH \n MONEY TO BUY THIS STOCK");
                 return;
             }
             MainMenuController.userCurrentBalance = fullyCalculatedAmount;

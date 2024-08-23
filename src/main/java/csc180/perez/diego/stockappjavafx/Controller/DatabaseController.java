@@ -8,12 +8,12 @@ import javafx.scene.control.TextField;
 import java.sql.*;
 
 public class DatabaseController {
-    static String url = "jdbc:mysql://localhost:3306/";
-    static String user = "root";
-    static String password = "test";
-    //static String url = "jdbc:mysql://stockaws.cxquk06g8ywu.us-east-2.rds.amazonaws.com:3306/";
-    //static String user = "admin";
-    //static String password = "password";
+    //static String url = "jdbc:mysql://localhost:3306/";
+    //static String user = "root";
+    //static String password = "test";
+    static String url = "jdbc:mysql://stockaws.cxquk06g8ywu.us-east-2.rds.amazonaws.com:3306/";
+    static String user = "admin";
+    static String password = "password";
 
 
     //region DATABASE CONNECTION
@@ -31,7 +31,6 @@ public class DatabaseController {
         }
     }
     //endregion
-
     //region CREATING LOGIC FOR DATABASE
     public static void createDatabase() {
         try {
@@ -189,7 +188,6 @@ public class DatabaseController {
 
     }
     //endregion
-
     //region getting Info from Database
     public static String[] getUserStockAmount(String username, String ticket) {
         int personId = getPersonId(username);
@@ -291,8 +289,6 @@ public class DatabaseController {
         }
     }
 //endregion
-
-
     //region user login
     public static String[] loginUser(String username) {
         String sql = "SELECT Password, Username, CurrentBalance from stock.people where Username = ?";
@@ -313,13 +309,12 @@ public class DatabaseController {
         }
         return null;
     }
-    //endregion
-
 
     public boolean isUsernameAvailable(String username) {
         return getPersonId(username) == -1;
     }
-
+    //endregion
+    //region get person info
     public static double getPersonCurrentMoney(String username) {
         try {
             Connection connection = DriverManager.getConnection(url, user, password);
@@ -352,6 +347,6 @@ public class DatabaseController {
             throw new RuntimeException(e);
         }
     }
+    //endregion
 }
-
 
