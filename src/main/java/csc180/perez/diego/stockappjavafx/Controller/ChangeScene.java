@@ -22,7 +22,9 @@ public class ChangeScene {
     private static Scene scene;
 
     public static void changeScene(Event event, String strFXMLFileName) throws IOException {
-        URL url = new File("src/main/resources/csc180/perez/diego/stockappjavafx/" + strFXMLFileName).toURI().toURL();
+//        URL url = new File("src/main/resources/csc180/perez/diego/stockappjavafx/" + strFXMLFileName).toURI().toURL();
+//        Parent root = FXMLLoader.load(url);
+        URL url = ChangeScene.class.getResource("/csc180/perez/diego/stockappjavafx/" + strFXMLFileName);
         Parent root = FXMLLoader.load(url);
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);

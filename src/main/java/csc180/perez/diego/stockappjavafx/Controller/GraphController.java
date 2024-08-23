@@ -17,6 +17,7 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -53,8 +54,8 @@ public class GraphController {
     private LineChart<String, BigInteger> chartHistoricalData;
 
     @FXML
-    void exit(ActionEvent event) {
-
+    void exit(ActionEvent event) throws IOException {
+        ChangeScene.changeScene(event, "StockSearch.fxml");
     }
 
     @FXML
