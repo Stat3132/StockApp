@@ -21,9 +21,16 @@ public class StockApi {
     private static Map<String, Stock> stockValuesMap = new HashMap<>();
     private static ArrayList<StockTicker> enumOfStockNames = new ArrayList<>();
 
-    public static Map<String, List<Map<String, Stock>>> historicalStockValueMap = new HashMap<>();
-    public static String timePeriod = "";
+    private static Map<String, List<Map<String, Stock>>> historicalStockValueMap = new HashMap<>();
+    private static String timePeriod = "";
 
+    public static Map<String, List<Map<String, Stock>>> getHistoricalStockValueMap() {
+        return historicalStockValueMap;
+    }
+
+    public static void clearHistoricalStockValueMap(){
+        historicalStockValueMap.clear();
+    }
 
     //region original accessingApi
     public static void  accessingAPI() {
@@ -139,7 +146,7 @@ public class StockApi {
                         }
                     }
                     default -> {
-                        System.out.println("invalid key");
+
                     }
                 }
             }
