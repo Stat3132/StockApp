@@ -29,6 +29,4 @@ public class ChangeScene {
         stage.setScene(scene);
         stage.show();
     }
-
-
 }

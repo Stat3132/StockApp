@@ -24,12 +24,12 @@
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
-            <version>21</version>
+            <version>22</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
-            <version>21</version>
+            <version>22</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -82,6 +82,16 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
+                                <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+                                    <encoder>
+                                        <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+                                    </encoder>
+                                    <filter class="ch.qos.logback.classic.filter.DuplicateMessageFilter" />
+                                </appender>
+
+                                <root level="WARN">
+                                    <appender-ref ref="STDOUT" />
+                                </root>
                             <mainClass>
                                 csc180.perez.diego.stockappjavafx/csc180.perez.diego.stockappjavafx.HelloApplication
                             </mainClass>

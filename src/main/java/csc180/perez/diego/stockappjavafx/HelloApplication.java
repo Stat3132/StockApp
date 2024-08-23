@@ -2,6 +2,7 @@ package csc180.perez.diego.stockappjavafx;
 
 import csc180.perez.diego.stockappjavafx.Controller.DatabaseController;
 import csc180.perez.diego.stockappjavafx.Controller.StockApi;
+import csc180.perez.diego.stockappjavafx.Model.Portfolio;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -20,8 +21,7 @@ public class HelloApplication extends Application {
     }
     public static void main(String[] args) {
         DatabaseController.createDatabase();
-        StockApi api = new StockApi();
-        api.accessingAPI();
+        StockApi.accessingAPI();
         launch();
     }
 }
