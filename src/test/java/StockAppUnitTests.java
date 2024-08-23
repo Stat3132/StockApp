@@ -145,7 +145,7 @@ public class StockAppUnitTests {
     }
     @Test
     public void validUserName(){
-        String validUserName = "eboyle-31";
+        String validUserName = "Eboyle31";
         Regex solver = new Regex();
         assertTrue(solver.isValidUserName(validUserName));
     }

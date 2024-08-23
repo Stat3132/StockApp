@@ -7,61 +7,61 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: lightgray; -fx-border-color: red; -fx-border-width: 4px;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="csc180.perez.diego.stockappjavafx.Controller.CreateAccountController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: lightgray; -fx-border-color: blue; -fx-border-width: 6px;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="csc180.perez.diego.stockappjavafx.Controller.CreateAccountController">
    <children>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="138.0" layoutY="14.0" prefHeight="54.0" prefWidth="325.0" text="Create Account" textAlignment="CENTER" textFill="RED">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="138.0" layoutY="14.0" prefHeight="54.0" prefWidth="325.0" text="Create Account" textAlignment="CENTER" textFill="#0008ff">
          <font>
             <Font name="System Bold" size="40.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="114.0" layoutY="84.0" prefHeight="25.0" prefWidth="98.0" text="First Name" textFill="RED">
+      <Label alignment="CENTER" layoutX="114.0" layoutY="84.0" prefHeight="25.0" prefWidth="98.0" text="First Name" textFill="#0008ff">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
       </Label>
       <TextField fx:id="txtFirstName" alignment="CENTER" layoutX="89.0" layoutY="109.0" onKeyTyped="#onKeyInputForFirstName" prefHeight="25.0" prefWidth="149.0" />
-      <Label alignment="CENTER" layoutX="115.0" layoutY="134.0" prefHeight="25.0" prefWidth="98.0" text="Last Name" textFill="RED">
+      <Label alignment="CENTER" layoutX="115.0" layoutY="134.0" prefHeight="25.0" prefWidth="98.0" text="Last Name" textFill="#0008ff">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
       </Label>
       <TextField fx:id="txtLastName" alignment="CENTER" layoutX="90.0" layoutY="159.0" onKeyTyped="#onKeyInputForLastName" prefHeight="25.0" prefWidth="149.0" />
-      <Label alignment="CENTER" layoutX="114.0" layoutY="188.0" prefHeight="25.0" prefWidth="98.0" text="Email" textFill="RED">
+      <Label alignment="CENTER" layoutX="114.0" layoutY="188.0" prefHeight="25.0" prefWidth="98.0" text="Email" textFill="#0008ff">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
       </Label>
       <TextField fx:id="txtEmail" alignment="CENTER" layoutX="89.0" layoutY="213.0" onKeyTyped="#onKeyInputForEmail" prefHeight="25.0" prefWidth="149.0" />
-      <Label alignment="CENTER" layoutX="106.0" layoutY="244.0" prefHeight="25.0" prefWidth="120.0" text="Phone Number" textFill="RED">
+      <Label alignment="CENTER" layoutX="106.0" layoutY="244.0" prefHeight="25.0" prefWidth="120.0" text="Phone Number" textFill="#0008ff">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
       </Label>
       <TextField fx:id="txtPhoneNumber" alignment="CENTER" layoutX="89.0" layoutY="269.0" onKeyTyped="#onKeyInputForPhoneNumber" prefHeight="25.0" prefWidth="149.0" />
-      <Label alignment="CENTER" layoutX="414.0" layoutY="147.0" prefHeight="25.0" prefWidth="98.0" text="Username" textFill="RED">
+      <Label alignment="CENTER" layoutX="414.0" layoutY="122.0" prefHeight="25.0" prefWidth="98.0" text="Username" textFill="#0008ff">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="105.0" layoutY="294.0" prefHeight="25.0" prefWidth="120.0" text="Age" textFill="RED">
+      <Label alignment="CENTER" layoutX="105.0" layoutY="294.0" prefHeight="25.0" prefWidth="120.0" text="Age" textFill="#0008ff">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
       </Label>
       <TextField fx:id="txtAge" alignment="CENTER" layoutX="89.0" layoutY="319.0" onKeyTyped="#onKeyInputForAge" prefHeight="25.0" prefWidth="149.0" />
-      <TextField fx:id="txtUserName" alignment="CENTER" layoutX="389.0" layoutY="176.0" onKeyTyped="#onKeyInputForUserName" prefHeight="25.0" prefWidth="149.0" />
-      <Label alignment="CENTER" layoutX="415.0" layoutY="213.0" prefHeight="25.0" prefWidth="98.0" text="Password" textFill="RED">
+      <TextField fx:id="txtUserName" alignment="CENTER" layoutX="389.0" layoutY="147.0" onKeyTyped="#onKeyInputForUserName" prefHeight="25.0" prefWidth="149.0" />
+      <Label alignment="CENTER" layoutX="414.0" layoutY="176.0" prefHeight="25.0" prefWidth="98.0" text="Password" textFill="#0008ff">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
       </Label>
-      <TextField fx:id="txtPassword" alignment="CENTER" layoutX="390.0" layoutY="244.0" onKeyTyped="#onKeyInputForPassword" prefHeight="25.0" prefWidth="149.0" />
-      <Button fx:id="btnFinish" alignment="CENTER" layoutX="432.0" layoutY="278.0" mnemonicParsing="false" onMouseClicked="#onFinishClick" prefHeight="32.0" prefWidth="62.0" style="-fx-background-color: lightgray; -fx-border-width: 3px; -fx-border-color: red;" text="Finish" textAlignment="CENTER" textFill="RED">
+      <TextField fx:id="txtPassword" alignment="CENTER" layoutX="389.0" layoutY="201.0" onKeyTyped="#onKeyInputForPassword" prefHeight="25.0" prefWidth="149.0" />
+      <Button fx:id="btnFinish" alignment="CENTER" layoutX="432.0" layoutY="278.0" mnemonicParsing="false" onMouseClicked="#onFinishClick" prefHeight="32.0" prefWidth="62.0" style="-fx-background-color: lightgray; -fx-border-width: 3px; -fx-border-color: blue;" text="Finish" textAlignment="CENTER" textFill="#0008ff">
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
       </Button>
-      <Button fx:id="btnBack" alignment="CENTER" layoutX="14.0" layoutY="354.0" mnemonicParsing="false" onMouseClicked="#onBackClick" prefHeight="32.0" prefWidth="62.0" style="-fx-background-color: lightgray; -fx-border-width: 3px; -fx-border-color: red;" text="Back" textAlignment="CENTER" textFill="RED">
+      <Button fx:id="btnBack" alignment="CENTER" layoutX="14.0" layoutY="354.0" mnemonicParsing="false" onMouseClicked="#onBackClick" prefHeight="32.0" prefWidth="62.0" style="-fx-background-color: lightgray; -fx-border-width: 3px; -fx-border-color: blue;" text="Back" textAlignment="CENTER" textFill="#0008ff">
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
@@ -69,6 +69,11 @@
       <Label fx:id="lblErrorMessage" alignment="CENTER" contentDisplay="CENTER" layoutX="283.0" layoutY="322.0" prefHeight="44.0" prefWidth="194.0" textAlignment="CENTER" textFill="RED">
          <font>
             <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label ellipsisString="" layoutX="389.0" layoutY="230.0" prefHeight="44.0" prefWidth="149.0" text="Must have 8 characters, 1 uppercase, 3 lowercase, 4 numbers, 1 special character" textAlignment="CENTER" textFill="#0008ff" textOverrun="CLIP" wrapText="true">
+         <font>
+            <Font size="9.0" />
          </font>
       </Label>
    </children>

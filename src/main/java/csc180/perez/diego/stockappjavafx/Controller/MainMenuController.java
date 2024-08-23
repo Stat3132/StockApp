@@ -15,6 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
+import javax.xml.crypto.Data;
 import java.io.IOException;
 
 public class MainMenuController {
@@ -30,14 +31,21 @@ public class MainMenuController {
 
     @FXML
     private Label lblUserPortfolio;
+    @FXML
+    private Label UserCash;
 
     @FXML
     private TextField txtStockSearch;
     static String userName;
+    static double userCurrentBalance;
 
     @FXML
     void initialize() {
         lblHelloUser.setText("Hello " + userName);
+        UserCash.setText("Current Balance: $" + userCurrentBalance);
+        String[] stockInfo = DatabaseController.getUserStockAmount(userName, "NVDA");
+        lblUserPortfolio.setText(stockInfo[1] + ":" +stockInfo[0] + " shares");
+
     }
     @FXML
     void onExitClick(MouseEvent event) {

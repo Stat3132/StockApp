@@ -6,6 +6,8 @@
  */
 package csc180.perez.diego.stockappjavafx.Model;
 
+import csc180.perez.diego.stockappjavafx.Controller.DatabaseController;
+
 public class Portfolio  {
 
     private double  portfolioPrice;
@@ -13,8 +15,7 @@ public class Portfolio  {
 
     private int purchasePrice;
 
-    public static void buy(){
-
+    public static void buy() {
     }
     public static void sell(){
 

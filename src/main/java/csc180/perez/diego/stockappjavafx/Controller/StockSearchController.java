@@ -6,10 +6,12 @@
  */
 package csc180.perez.diego.stockappjavafx.Controller;
 
+import csc180.perez.diego.stockappjavafx.Model.Person;
 import csc180.perez.diego.stockappjavafx.Model.Stock;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
@@ -31,12 +33,17 @@ public class StockSearchController {
     private Label lblStockName;
 
     @FXML
-    private Label lblStockPrice;
+    private Label lblStockPrice, lblOutcome;
+    @FXML
+    private TextField amountToBuy;
+    static String userName;
 
     static String stockData[];
     double[] stockHistoryInDouble = new double[6];
+
     @FXML
     void initialize() {
+
         lblStockName.setText(stockData[0]);
         lblStockPrice.setText(stockData[5]);
         int oneValueBefore = 0;
@@ -49,9 +56,10 @@ public class StockSearchController {
             stockHistoryInDouble[oneValueBefore] = convertedValues;
             oneValueBefore++;
         }
-        Stock stockHistory = new Stock(stockData[0], stockHistoryInDouble[0], stockHistoryInDouble[1], stockHistoryInDouble[2], stockHistoryInDouble[3], stockHistoryInDouble[4], (long)stockHistoryInDouble[5]);
+        Stock stockHistory = new Stock(stockData[0], stockHistoryInDouble[0], stockHistoryInDouble[1], stockHistoryInDouble[2], stockHistoryInDouble[3], stockHistoryInDouble[4], (long) stockHistoryInDouble[5]);
         lblStockHistory.setText(stockHistory.toString());
     }
+
     @FXML
     void onBackClick(MouseEvent event) throws IOException {
         ChangeScene.changeScene(event, "MainMenu.fxml");
@@ -59,7 +67,23 @@ public class StockSearchController {
 
     @FXML
     void onBuyClick(MouseEvent event) {
-        DatabaseController.createUserStockRelationship(MainMenuController.userName, stockData[0], stockHistoryInDouble[4]);
+        if (amountToBuy.getText() != null) {
+            double fullyCalculatedAmount;
+            double amountBought = Double.parseDouble(amountToBuy.getText());
+            double totalAmountBought = stockHistoryInDouble[4] * amountBought;
+            System.out.println(totalAmountBought);
+            double amountOfPerson = DatabaseController.getPersonCurrentMoney(userName);
+            if (amountOfPerson > totalAmountBought) {
+                fullyCalculatedAmount = amountOfPerson - totalAmountBought;
+                lblOutcome.setText("YOU HAVE BOUGHT A STOCK");
+                DatabaseController.updatePersonTotalAmount(userName, fullyCalculatedAmount);
+            } else {
+                lblOutcome.setText("YOU DO NOT HAVE ENOUGH \n MONEY TO BUY THIS STOCK");
+                return;
+            }
+            MainMenuController.userCurrentBalance = fullyCalculatedAmount;
+            DatabaseController.createUserStockRelationship(MainMenuController.userName, stockData[0], totalAmountBought);
+        }
     }
 
     @FXML

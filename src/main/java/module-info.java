@@ -7,6 +7,7 @@ module csc180.perez.diego.stockappjavafx {
     requires java.sql;
     requires java.desktop;
     requires jdk.compiler;
+    requires java.xml.crypto;
 
 
     opens csc180.perez.diego.stockappjavafx to javafx.fxml;

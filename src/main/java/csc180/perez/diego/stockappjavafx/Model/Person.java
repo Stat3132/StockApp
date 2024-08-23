@@ -10,6 +10,7 @@ public class Person {
     private String password;
     private String userName;
     private int age;
+    private double amountOfMoney = 1000;
 
     public Person(String firstName, String lastName, String phoneNumber, int age, String email, String password, String userName) {
         this.firstName = firstName;
@@ -55,5 +56,13 @@ public class Person {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public double getAmountOfMoney() {
+        return amountOfMoney;
+    }
+
+    public void setAmountOfMoney(double amountOfMoney) {
+        this.amountOfMoney = amountOfMoney;
     }
 }
