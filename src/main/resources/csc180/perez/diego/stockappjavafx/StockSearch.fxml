@@ -47,5 +47,10 @@
          </font>
       </Label>
       <TextField fx:id="amountToBuy" layoutX="423.0" layoutY="42.0" promptText="Amount to buy:" />
+      <Label fx:id="outcome" layoutX="423.0" layoutY="125.0" text="Outcome:" textFill="#1500ff">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
    </children>
 </Pane>
