@@ -44,44 +44,39 @@ public class MainMenuController {
         lblHelloUser.setText("Hello " + userName);
         UserCash.setText("Current Balance: $" + userCurrentBalance);
         for (int i = 0; i < tickerNames.length; i++) {
-              stockInfo = DatabaseController.getUserStockAmount(userName, tickerNames[i]);
-              if (i == 0 && stockInfo != null){
-                    NVDAshare.setText("Most recent " + stockInfo[1] + ":" +stockInfo[0] + " shares");
-                } else if (i == 1 && stockInfo != null){
-                    LUMNshare.setText("Most recent " + stockInfo[1] + ":" +stockInfo[0] + " shares");
-                } else if (i == 2 && stockInfo != null){
-                    INTCshare.setText("Most recent " + stockInfo[1] + ":" +stockInfo[0] + " shares");
-                } else if (i == 3 && stockInfo != null){
-                    PLTRshare.setText("Most recent " + stockInfo[1] + ":" +stockInfo[0] + " shares");
-                } else if (i == 4 && stockInfo != null){
-                    LYFTshare.setText("Most recent " + stockInfo[1] + ":" +stockInfo[0] + " shares");
-              }
-        }
-        if (stockInfo == null || stockInfo.length == 0){
-            return;
+            stockInfo = DatabaseController.getUserStockAmount(userName, tickerNames[i]);
+            if (i == 0 && stockInfo != null) {
+                NVDAshare.setText("Most recent " + stockInfo[1] + ":" + stockInfo[0] + " shares");
+            } else if (i == 1 && stockInfo != null) {
+                LUMNshare.setText("Most recent " + stockInfo[1] + ":" + stockInfo[0] + " shares");
+            } else if (i == 2 && stockInfo != null) {
+                INTCshare.setText("Most recent " + stockInfo[1] + ":" + stockInfo[0] + " shares");
+            } else if (i == 3 && stockInfo != null) {
+                PLTRshare.setText("Most recent " + stockInfo[1] + ":" + stockInfo[0] + " shares");
+            } else if (i == 4 && stockInfo != null) {
+                LYFTshare.setText("Most recent " + stockInfo[1] + ":" + stockInfo[0] + " shares");
+            }
         }
 
     }
+
     @FXML
-    void onExitClick(MouseEvent event) {
+    void onExitClick() {
         Platform.exit();
     }
 
     @FXML
     void onSearchClick(MouseEvent event) throws IOException {
-        if (txtStockSearch.getText().equalsIgnoreCase("NVDA")|| txtStockSearch.getText().equalsIgnoreCase("LUMN") || txtStockSearch.getText().equalsIgnoreCase("INTC") || txtStockSearch.getText().equalsIgnoreCase("PLTR") || txtStockSearch.getText().equalsIgnoreCase("LYFT")) {
-            String[] stockInfo = DatabaseController.stockInfo(txtStockSearch);
-            StockSearchController.stockData = stockInfo;
-            ChangeScene.changeScene(event, "StockSearch.fxml");
-        } else {
-            txtStockSearch.setText("");
-            txtStockSearch.setPromptText("INVALID STOCK");
+        for (StockTicker enumeratedEnum : StockTicker.values()) {
+            if (txtStockSearch.getText().equalsIgnoreCase(enumeratedEnum.toString())) {
+                String[] stockInfo = DatabaseController.stockInfo(txtStockSearch);
+                StockSearchController.stockData = stockInfo;
+                ChangeScene.changeScene(event, "StockSearch.fxml");
+                return;
+            } else {
+                txtStockSearch.setText("");
+                txtStockSearch.setPromptText("INVALID STOCK");
+            }
         }
     }
-
-    @FXML
-    void onBuyClicked(MouseEvent event) {
-
-    }
-
 }

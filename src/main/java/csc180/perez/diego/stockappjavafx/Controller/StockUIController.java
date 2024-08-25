@@ -37,6 +37,7 @@ public class StockUIController {
                     StockSearchController.userName = databasePassword[1];
                     MainMenuController.userCurrentBalance = Double.parseDouble(databasePassword[2]);
                     ChangeScene.changeScene(event, "MainMenu.fxml");
+                    return;
                 } else {
                     break;
                 }

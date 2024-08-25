@@ -18,25 +18,8 @@ import java.io.IOException;
 
 public class StockSearchController {
     @FXML
-    private Button btnBack;
+    private Label lblStockHistory, lblStockName, lblStockPrice, outcome;
 
-    @FXML
-    private Button btnBuy;
-
-    @FXML
-    private Button btnSell;
-
-    @FXML
-    private Label lblStockHistory;
-
-    @FXML
-    private Label lblStockName;
-
-    @FXML
-    private Label lblStockPrice;
-
-    @FXML
-    private Label outcome;
 
     @FXML
     private TextField amountToBuy;
@@ -70,21 +53,21 @@ public class StockSearchController {
     }
 
     @FXML
-    void onBuyClick(MouseEvent event) {
+    void onBuyClick() {
         if (amountToBuy.getText() != null) {
             double fullyCalculatedAmount;
             double amountBought = Double.parseDouble(amountToBuy.getText());
             double totalAmountBought = stockHistoryInDouble[4] * amountBought;
             System.out.println(totalAmountBought);
             double amountOfPerson = DatabaseController.getPersonCurrentMoney(userName);
-            if (amountOfPerson > totalAmountBought) {
-                fullyCalculatedAmount = amountOfPerson - totalAmountBought;
-                outcome.setText("YOU HAVE BOUGHT A STOCK");
-                DatabaseController.updatePersonTotalAmount(userName, fullyCalculatedAmount);
-            } else {
+
+            if (amountOfPerson < totalAmountBought) {
                 outcome.setText("YOU DO NOT HAVE ENOUGH \n MONEY TO BUY THIS STOCK");
                 return;
             }
+            fullyCalculatedAmount = amountOfPerson - totalAmountBought;
+            outcome.setText("YOU HAVE BOUGHT A STOCK");
+            DatabaseController.updatePersonTotalAmount(userName, fullyCalculatedAmount);
             MainMenuController.userCurrentBalance = fullyCalculatedAmount;
             DatabaseController.createUserStockRelationship(MainMenuController.userName, stockData[0], totalAmountBought);
         }

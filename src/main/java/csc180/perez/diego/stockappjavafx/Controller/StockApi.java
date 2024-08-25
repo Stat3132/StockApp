@@ -64,7 +64,7 @@ public class StockApi {
     //region new accessingAPI
     public static void accessingAPI(StockTicker stockTicker, String timeSpan, int timeBeforeCurrentDay){
         //todo one week, 1 month, 3 months, six months, one year, two years
-        LocalDate timePeriodBefore = null;
+        LocalDate timePeriodBefore;
         switch(timeSpan.toLowerCase()){
             case "month" -> {
                 if (timeBeforeCurrentDay == 6) {
