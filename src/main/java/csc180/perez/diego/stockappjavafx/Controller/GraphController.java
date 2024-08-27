@@ -29,27 +29,6 @@ public class GraphController {
     public TextField txtFieldSearch;
 
     @FXML
-    private Button btn1Month;
-
-    @FXML
-    private Button btn1Week;
-
-    @FXML
-    private Button btn1Year;
-
-    @FXML
-    private Button btn2Years;
-
-    @FXML
-    private Button btn3Month;
-
-    @FXML
-    private Button btn6Month;
-
-    @FXML
-    private Button btnExit;
-
-    @FXML
     private LineChart<String, BigInteger> chartHistoricalData;
 
     @FXML

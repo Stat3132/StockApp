@@ -230,12 +230,12 @@ public class DatabaseController {
 
     }
 
-    public static String[] stockInfo(TextField ticker) {
+    public static String[] stockInfo(String ticker) {
         String sql = "SELECT lowestPrice, highestPrice, currentClosingPrice, volume, openingPrice, amountOfTransactions from stock.stocks where ticket = ?";
         try {
             Connection con = DriverManager.getConnection(url, user, password);
             PreparedStatement pst = con.prepareStatement(sql);
-            pst.setString(1, ticker.getText());
+            pst.setString(1,ticker);
             ResultSet result = pst.executeQuery();
             while (result.next()) {
                 String lowestPrice = result.getString("lowestPrice");
@@ -244,7 +244,7 @@ public class DatabaseController {
                 String volume = result.getString("volume");
                 String openingPrice = result.getString("openingPrice");
                 String amountOfTransactions = result.getString("amountOfTransactions");
-                String[] stockInfo = {ticker.getText(), lowestPrice, highestPrice, currentClosingPrice, volume, openingPrice, amountOfTransactions};
+                String[] stockInfo = {ticker, lowestPrice, highestPrice, currentClosingPrice, volume, openingPrice, amountOfTransactions};
                 return stockInfo;
             }
 

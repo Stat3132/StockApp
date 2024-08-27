@@ -6,6 +6,7 @@
  */
 package csc180.perez.diego.stockappjavafx.Controller;
 
+import javafx.concurrent.Task;
 import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -22,11 +23,36 @@ public class ChangeScene {
     private static Scene scene;
 
     public static void changeScene(Event event, String strFXMLFileName) throws IOException {
+        if (stage == null) {
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        }
         URL url = new File("src/main/resources/csc180/perez/diego/stockappjavafx/" + strFXMLFileName).toURI().toURL();
         Parent root = FXMLLoader.load(url);
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+
+    public static void changeSceneWithLoadingScreen(Event event, String strFXMLFileName, Task<Void> dataTask) throws IOException {
+        URL loadingFXML = new File("src/main/resources/csc180/perez/diego/stockappjavafx/LoadingScreen.fxml").toURI().toURL();
+        Parent loadingRoot = FXMLLoader.load(loadingFXML);
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(loadingRoot);
+        stage.setScene(scene);
+        stage.show();
+
+        dataTask.setOnSucceeded(e -> {
+            try {
+                URL url = new File("src/main/resources/csc180/perez/diego/stockappjavafx/" + strFXMLFileName).toURI().toURL();
+                Parent root = FXMLLoader.load(url);
+                Scene newScene = new Scene(root);
+                stage.setScene(newScene);
+                stage.show();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
+        new Thread(dataTask).start();
     }
 }
