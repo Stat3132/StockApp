@@ -17,9 +17,11 @@ import java.io.IOException;
 
 public class StockSearchController {
     @FXML
-    private Label lblStockHistory, lblStockName, lblStockPrice, outcome;
+    private Label lblStockHistory, lblStockName, lblStockPrice, outcome, sellOutcome;
     @FXML
-    private TextField amountToBuy, amountToSell;
+    private TextField amountToBuy;
+    @FXML
+    private TextField amountToSell = null;
     static String userName;
     static String[] stockData;
     double[] stockHistoryInDouble = new double[6];
@@ -52,7 +54,7 @@ public class StockSearchController {
                 return null;
             }
         };
-         ChangeScene.changeSceneWithLoadingScreen(event, "MainMenu.fxml", databaseRetrieval);
+        ChangeScene.changeSceneWithLoadingScreen(event, "MainMenu.fxml", databaseRetrieval);
     }
 
     @FXML
@@ -75,10 +77,23 @@ public class StockSearchController {
             DatabaseController.createUserStockRelationship(MainMenuController.userName, stockData[0], totalAmountBought);
         }
     }
+
     @FXML
-    void onSellClick(MouseEvent event) {
+    void onSellClick() {
         if (amountToSell.getText() != null) {
-            double totalStocksBought;
+            double totalShareOfStock = DatabaseController.getStockValueFromStock(userName, stockData[0]);
+            double amountSelling = Double.parseDouble(amountToSell.getText());
+            if (amountSelling < totalShareOfStock) {
+                double amountOfPerson = DatabaseController.getPersonCurrentMoney(userName);
+                double newPersonAmount = amountOfPerson + amountSelling;
+                MainMenuController.userCurrentBalance = newPersonAmount;
+                double newStockAmount = totalShareOfStock - amountSelling;
+                DatabaseController.updatePersonTotalAmount(userName, newPersonAmount);
+                DatabaseController.updatingStockValueFromStock(userName, stockData[0], newStockAmount);
+                sellOutcome.setText("YOU HAVE SOLD A STOCK");
+                return;
+            }
+            sellOutcome.setText("YOU DO NOT HAVE ENOUGH STOCK TO SELL");
         }
 
     }

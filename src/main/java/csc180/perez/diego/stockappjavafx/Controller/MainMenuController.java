@@ -33,15 +33,15 @@ public class MainMenuController {
         for (int i = 0; i < tickerNames.length; i++) {
             stockInfo = DatabaseController.getUserStockAmount(userName, tickerNames[i]);
             if (i == 0 && stockInfo != null) {
-                NVDAshare.setText("Most recent " + stockInfo[1] + ":" + stockInfo[0] + " shares");
+                NVDAshare.setText("Total " + stockInfo[1] + ":" + stockInfo[0] + " shares");
             } else if (i == 1 && stockInfo != null) {
-                LUMNshare.setText("Most recent " + stockInfo[1] + ":" + stockInfo[0] + " shares");
+                LUMNshare.setText("Total " + stockInfo[1] + ":" + stockInfo[0] + " shares");
             } else if (i == 2 && stockInfo != null) {
-                INTCshare.setText("Most recent " + stockInfo[1] + ":" + stockInfo[0] + " shares");
+                INTCshare.setText("Total " + stockInfo[1] + ":" + stockInfo[0] + " shares");
             } else if (i == 3 && stockInfo != null) {
-                PLTRshare.setText("Most recent " + stockInfo[1] + ":" + stockInfo[0] + " shares");
+                PLTRshare.setText("Total " + stockInfo[1] + ":" + stockInfo[0] + " shares");
             } else if (i == 4 && stockInfo != null) {
-                LYFTshare.setText("Most recent " + stockInfo[1] + ":" + stockInfo[0] + " shares");
+                LYFTshare.setText("Total " + stockInfo[1] + ":" + stockInfo[0] + " shares");
             }
         }
     }
