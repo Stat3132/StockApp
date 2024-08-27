@@ -31,7 +31,7 @@
             <Insets />
          </opaqueInsets>
       </Button>
-      <Label fx:id="lblStockPrice" alignment="CENTER" layoutX="419.0" layoutY="179.0" prefHeight="43.0" prefWidth="158.0" text="Stock Price" textAlignment="CENTER" textFill="#0008ff">
+      <Label fx:id="lblStockPrice" alignment="CENTER" layoutX="419.0" layoutY="200.0" prefHeight="43.0" prefWidth="158.0" text="Stock Price" textAlignment="CENTER" textFill="#0008ff">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
@@ -56,11 +56,6 @@
       <Label fx:id="sellOutcome" layoutX="423.0" layoutY="346.0" text="Outcome:" textFill="#1500ff">
          <font>
             <Font name="System Bold" size="12.0" />
-         </font>
-      </Label>
-      <Label fx:id="lblStockPrice1" alignment="CENTER" layoutX="419.0" layoutY="148.0" prefHeight="43.0" prefWidth="158.0" text="Total shares:" textAlignment="CENTER" textFill="#0008ff">
-         <font>
-            <Font name="System Bold" size="20.0" />
          </font>
       </Label>
    </children>
