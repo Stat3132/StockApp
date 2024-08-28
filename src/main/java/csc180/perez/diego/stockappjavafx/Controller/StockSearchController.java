@@ -6,10 +6,9 @@
  */
 package csc180.perez.diego.stockappjavafx.Controller;
 
-import csc180.perez.diego.stockappjavafx.Model.Person;
 import csc180.perez.diego.stockappjavafx.Model.Stock;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -18,14 +17,13 @@ import java.io.IOException;
 
 public class StockSearchController {
     @FXML
-    private Label lblStockHistory, lblStockName, lblStockPrice, outcome;
-
-
+    private Label lblStockHistory, lblStockName, lblStockPrice, outcome, sellOutcome;
     @FXML
     private TextField amountToBuy;
+    @FXML
+    private TextField amountToSell = null;
     static String userName;
-
-    static String stockData[];
+    static String[] stockData;
     double[] stockHistoryInDouble = new double[6];
 
     @FXML
@@ -49,7 +47,14 @@ public class StockSearchController {
 
     @FXML
     void onBackClick(MouseEvent event) throws IOException {
-        ChangeScene.changeScene(event, "MainMenu.fxml");
+        Task<Void> databaseRetrieval = new Task<>() {
+            @Override
+            protected Void call() throws Exception {
+                System.out.println("Back Clicked");
+                return null;
+            }
+        };
+        ChangeScene.changeSceneWithLoadingScreen(event, "MainMenu.fxml", databaseRetrieval);
     }
 
     @FXML
@@ -74,7 +79,22 @@ public class StockSearchController {
     }
 
     @FXML
-    void onSellClick(MouseEvent event) {
+    void onSellClick() {
+        if (amountToSell.getText() != null) {
+            double totalShareOfStock = DatabaseController.getStockValueFromStock(userName, stockData[0]);
+            double amountSelling = Double.parseDouble(amountToSell.getText());
+            if (amountSelling < totalShareOfStock) {
+                double amountOfPerson = DatabaseController.getPersonCurrentMoney(userName);
+                double newPersonAmount = amountOfPerson + amountSelling;
+                MainMenuController.userCurrentBalance = newPersonAmount;
+                double newStockAmount = totalShareOfStock - amountSelling;
+                DatabaseController.updatePersonTotalAmount(userName, newPersonAmount);
+                DatabaseController.updatingStockValueFromStock(userName, stockData[0], newStockAmount);
+                sellOutcome.setText("YOU HAVE SOLD A STOCK");
+                return;
+            }
+            sellOutcome.setText("YOU DO NOT HAVE ENOUGH STOCK TO SELL");
+        }
 
     }
 

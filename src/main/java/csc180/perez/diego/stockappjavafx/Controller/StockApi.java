@@ -15,19 +15,18 @@ import java.util.*;
 
 public class StockApi {
 
+    //region stockApiVariables
     private static final LocalDate currentDay = LocalDate.now();
     private static LocalDate currentDayMinusOne = currentDay.minusDays(1);
     private static String mostRecentStockTime = currentDayMinusOne + "/" + currentDayMinusOne;
     private static Map<String, Stock> stockValuesMap = new HashMap<>();
     private static ArrayList<StockTicker> enumOfStockNames = new ArrayList<>();
-
     private static Map<String, List<Map<String, Stock>>> historicalStockValueMap = new HashMap<>();
     private static String timePeriod = "";
-
+    //endregion
     public static Map<String, List<Map<String, Stock>>> getHistoricalStockValueMap() {
         return historicalStockValueMap;
     }
-
     public static void clearHistoricalStockValueMap(){
         historicalStockValueMap.clear();
     }
@@ -61,7 +60,7 @@ public class StockApi {
     }
     //endregion
 
-    //region new accessingAPI
+    //region overLoaded accessingAPI
     public static void accessingAPI(StockTicker stockTicker, String timeSpan, int timeBeforeCurrentDay){
         //todo one week, 1 month, 3 months, six months, one year, two years
         LocalDate timePeriodBefore;
@@ -174,13 +173,9 @@ public class StockApi {
                 stockValuesMap.put(stock.toString(), newStock);
             }
         }
-        if(makeHistoricalData){
+        if(makeHistoricalData) {
             periodStockList.add(stockPrices);
             historicalStockValueMap.put(stock.toString(), periodStockList);
-        }else{
-            stockValuesMap.forEach((key, value) -> {
-                DatabaseController.createStocks(value);
-            });
         }
     }
     //endregion

@@ -8,30 +8,17 @@ package csc180.perez.diego.stockappjavafx.Controller;
 
 import csc180.perez.diego.stockappjavafx.UTIL.StockTicker;
 import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
-import javafx.scene.chart.PieChart;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
-import javax.xml.crypto.Data;
 import java.io.IOException;
 
 public class MainMenuController {
-
     @FXML
-    private Button btnExit;
-    @FXML
-    private Button btnSearch;
-    @FXML
-    private Label lblHelloUser;
-    @FXML
-    private Label lblUserPortfolio;
-    @FXML
-    private Label NVDAshare, LUMNshare, INTCshare, PLTRshare, LYFTshare;
-    @FXML
-    private Label UserCash;
+    private Label lblHelloUser, NVDAshare, LUMNshare, INTCshare, PLTRshare, LYFTshare, UserCash;
     @FXML
     private TextField txtStockSearch;
     static String userName;
@@ -46,18 +33,17 @@ public class MainMenuController {
         for (int i = 0; i < tickerNames.length; i++) {
             stockInfo = DatabaseController.getUserStockAmount(userName, tickerNames[i]);
             if (i == 0 && stockInfo != null) {
-                NVDAshare.setText("Most recent " + stockInfo[1] + ":" + stockInfo[0] + " shares");
+                NVDAshare.setText("Total " + stockInfo[1] + ":" + stockInfo[0] + " shares");
             } else if (i == 1 && stockInfo != null) {
-                LUMNshare.setText("Most recent " + stockInfo[1] + ":" + stockInfo[0] + " shares");
+                LUMNshare.setText("Total " + stockInfo[1] + ":" + stockInfo[0] + " shares");
             } else if (i == 2 && stockInfo != null) {
-                INTCshare.setText("Most recent " + stockInfo[1] + ":" + stockInfo[0] + " shares");
+                INTCshare.setText("Total " + stockInfo[1] + ":" + stockInfo[0] + " shares");
             } else if (i == 3 && stockInfo != null) {
-                PLTRshare.setText("Most recent " + stockInfo[1] + ":" + stockInfo[0] + " shares");
+                PLTRshare.setText("Total " + stockInfo[1] + ":" + stockInfo[0] + " shares");
             } else if (i == 4 && stockInfo != null) {
-                LYFTshare.setText("Most recent " + stockInfo[1] + ":" + stockInfo[0] + " shares");
+                LYFTshare.setText("Total " + stockInfo[1] + ":" + stockInfo[0] + " shares");
             }
         }
-
     }
 
     @FXML
@@ -67,16 +53,23 @@ public class MainMenuController {
 
     @FXML
     void onSearchClick(MouseEvent event) throws IOException {
-        for (StockTicker enumeratedEnum : StockTicker.values()) {
-            if (txtStockSearch.getText().equalsIgnoreCase(enumeratedEnum.toString())) {
-                String[] stockInfo = DatabaseController.stockInfo(txtStockSearch);
-                StockSearchController.stockData = stockInfo;
-                ChangeScene.changeScene(event, "StockSearch.fxml");
-                return;
-            } else {
-                txtStockSearch.setText("");
-                txtStockSearch.setPromptText("INVALID STOCK");
+        String searchInputStringConversion = txtStockSearch.getText();
+        Task<Void> databaseRetrieval = new Task<>() {
+            @Override
+            protected Void call() throws Exception {
+                for (StockTicker enumeratedEnum : StockTicker.values()) {
+                    if (searchInputStringConversion.equalsIgnoreCase(enumeratedEnum.toString())) {
+                        StockSearchController.stockData = DatabaseController.stockInfo(searchInputStringConversion);
+                        System.out.println("Correct search");
+                        return null;
+                    }
+                }
+                throw new Exception("INVALID STOCK");
             }
-        }
+        };
+        new Thread(databaseRetrieval).start();
+        ChangeScene.changeSceneWithLoadingScreen(event, "StockSearch.fxml", databaseRetrieval);
     }
+
+
 }

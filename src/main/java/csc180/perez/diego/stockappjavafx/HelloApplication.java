@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.awt.image.DataBuffer;
 import java.io.IOException;
 
 public class HelloApplication extends Application {
@@ -23,5 +24,10 @@ public class HelloApplication extends Application {
         DatabaseController.createDatabase();
         StockApi.accessingAPI();
         launch();
+//        String[] dataTest = DatabaseController.getStockValueFromStock("Stat19", "NVDA");
+//        for (String data : dataTest) {
+//            System.out.println(data);
+//        }
+
     }
 }
