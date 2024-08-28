@@ -24,7 +24,7 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <Label fx:id="UserCash" alignment="BASELINE_LEFT" layoutX="42.0" layoutY="91.0" prefHeight="50.0" prefWidth="206.0" text="Current balance:" textFill="#0008ff">
+      <Label fx:id="UserCash" alignment="BASELINE_LEFT" layoutX="42.0" layoutY="91.0" prefHeight="50.0" prefWidth="348.0" text="Current balance:" textFill="#0008ff">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
