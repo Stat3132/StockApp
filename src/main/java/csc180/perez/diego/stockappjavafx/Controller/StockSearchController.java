@@ -97,5 +97,10 @@ public class StockSearchController {
         }
 
     }
+
+    @FXML
+    void onStockHistoryClicked(MouseEvent event) throws IOException {
+        ChangeScene.changeScene(event, "HIstoricalChart.fxml");
+    }
 }
 
