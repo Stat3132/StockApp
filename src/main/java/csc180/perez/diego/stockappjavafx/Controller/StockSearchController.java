@@ -9,6 +9,7 @@ package csc180.perez.diego.stockappjavafx.Controller;
 import csc180.perez.diego.stockappjavafx.Model.Stock;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -16,6 +17,8 @@ import javafx.scene.input.MouseEvent;
 import java.io.IOException;
 
 public class StockSearchController {
+    @FXML
+    public Button btnStockHistory;
     @FXML
     private Label lblStockHistory, lblStockName, lblStockPrice, outcome, sellOutcome;
     @FXML
