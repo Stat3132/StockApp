@@ -53,22 +53,35 @@ public class MainMenuController {
 
     @FXML
     void onSearchClick(MouseEvent event) throws IOException {
-        String searchInputStringConversion = txtStockSearch.getText();
-        Task<Void> databaseRetrieval = new Task<>() {
-            @Override
-            protected Void call() throws Exception {
-                for (StockTicker enumeratedEnum : StockTicker.values()) {
-                    if (searchInputStringConversion.equalsIgnoreCase(enumeratedEnum.toString())) {
-                        StockSearchController.stockData = DatabaseController.stockInfo(searchInputStringConversion);
-                        System.out.println("Correct search");
-                        return null;
+        if(isSearchValid()) {
+            String searchInputStringConversion = txtStockSearch.getText();
+            Task<Void> databaseRetrieval = new Task<>() {
+                @Override
+                protected Void call() throws Exception {
+                    for (StockTicker enumeratedEnum : StockTicker.values()) {
+                        if (searchInputStringConversion.equalsIgnoreCase(enumeratedEnum.toString())) {
+                            StockSearchController.stockData = DatabaseController.stockInfo(searchInputStringConversion);
+                            System.out.println("Correct search");
+                            return null;
+                        }
                     }
+                    throw new Exception("INVALID STOCK");
                 }
-                throw new Exception("INVALID STOCK");
+            };
+            new Thread(databaseRetrieval).start();
+            ChangeScene.changeSceneWithLoadingScreen(event, "StockSearch.fxml", databaseRetrieval);
+        } else {
+            txtStockSearch.setText("Not Valid");
+        }
+    }
+
+    boolean isSearchValid(){
+        for (String tickerName : tickerNames) {
+            if(txtStockSearch.getText().equals(tickerName)){
+                return true;
             }
-        };
-        new Thread(databaseRetrieval).start();
-        ChangeScene.changeSceneWithLoadingScreen(event, "StockSearch.fxml", databaseRetrieval);
+        }
+        return false;
     }
 
 
