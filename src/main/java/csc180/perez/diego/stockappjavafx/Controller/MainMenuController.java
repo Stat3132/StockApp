@@ -54,12 +54,6 @@ public class MainMenuController {
     @FXML
     void onSearchClick(MouseEvent event) throws IOException {
         String searchInputStringConversion = txtStockSearch.getText();
-        for (String tickerName : tickerNames) {
-            if (searchInputStringConversion.equals("") || !searchInputStringConversion.equals(tickerName)) {
-                txtStockSearch.setText("Invalid stock");
-                return;
-            }
-        }
 
         Task<Void> databaseRetrieval = new Task<>() {
             @Override
