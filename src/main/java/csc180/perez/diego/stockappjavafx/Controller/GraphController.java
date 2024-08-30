@@ -89,6 +89,7 @@ public class GraphController {
                     BigInteger bigIntegerOfVolume = decimalOfVolume.toBigInteger();
                     series.getData().add(new XYChart.Data<>("" + period, bigIntegerOfVolume));
                     //System.out.println(bigIntegerOfVolume);
+                    break;
                 }
             }
         }

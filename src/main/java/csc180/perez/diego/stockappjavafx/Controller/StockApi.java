@@ -35,7 +35,7 @@ public class StockApi {
     public static void  accessingAPI() {
         enumOfStockNames.addAll(Arrays.asList(StockTicker.values()));
         for (int currentStock = 0; currentStock < 5; currentStock++) {
-            HttpGet stockAPIRequest = new HttpGet("https://api.polygon.io/v2/aggs/ticker/" + enumOfStockNames.get(currentStock) + "/range/1/day/" + mostRecentStockTime + "?apiKey=6yr9w0ir7v0gGtri_v4LXi1ehRoAMpQd");
+            HttpGet stockAPIRequest = new HttpGet("https://api.polygon.io/v2/aggs/ticker/" + enumOfStockNames.get(currentStock) + "/range/1/day/" + mostRecentStockTime + "?apiKey=fYQsjCYdZPfUhMzjYv5_nOUpbdTTGGup");
             CloseableHttpClient httpClient = HttpClients.createDefault();
             try (CloseableHttpResponse response = httpClient.execute(stockAPIRequest)) {
                 String responseBody = EntityUtils.toString(response.getEntity());
@@ -90,7 +90,7 @@ public class StockApi {
                 return;
             }
         }
-        String formattedApi = String.format("https://api.polygon.io/v2/aggs/ticker/%s/range/1/%s/%s/%s?apiKey=6yr9w0ir7v0gGtri_v4LXi1ehRoAMpQd", stockTicker.toString(),timeSpan.toLowerCase(),timePeriodBefore,currentDayMinusOne.toString());
+        String formattedApi = String.format("https://api.polygon.io/v2/aggs/ticker/%s/range/1/%s/%s/%s?apiKey=fYQsjCYdZPfUhMzjYv5_nOUpbdTTGGup", stockTicker.toString(),timeSpan.toLowerCase(),timePeriodBefore,currentDayMinusOne.toString());
         HttpGet apiRequest = new HttpGet(formattedApi);
         CloseableHttpClient apiClient = HttpClients.createDefault();
         try (CloseableHttpResponse response = apiClient.execute(apiRequest)) {

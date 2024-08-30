@@ -8,28 +8,16 @@ import javafx.scene.control.TextField;
 import java.sql.*;
 
 public class DatabaseController {
-    //static String url = "jdbc:mysql://localhost:3306/";
-    //static String user = "root";
-    //static String password = "test";
+//    static String url = "jdbc:mysql://localhost:3306/";
+//    static String user = "root";
+//    static String password = "test";
     static String url = "jdbc:mysql://stockaws.cxquk06g8ywu.us-east-2.rds.amazonaws.com:3306/";
     static String user = "admin";
     static String password = "password";
 
 
     //region DATABASE CONNECTION
-    public static void testConnection() throws SQLException { //uses version to check if the app is connected to the database
-        String sql = "SELECT VERSION()";
 
-
-        Connection con = DriverManager.getConnection(url, user, password);
-        Statement st = con.createStatement();
-        ResultSet rs = st.executeQuery(sql);
-
-
-        if (rs.next()) {
-            System.out.println(rs.getString(1)); // checks the result set and prints what is in it
-        }
-    }
 
     //endregion
     //region CREATING LOGIC FOR DATABASE

@@ -53,6 +53,18 @@ public class ChangeScene {
                 ex.printStackTrace();
             }
         });
+        dataTask.setOnFailed(e -> {
+            try {
+                URL url = new File("src/main/resources/csc180/perez/diego/stockappjavafx/StartingScreen.fxml").toURI().toURL();
+                Parent root = FXMLLoader.load(url);
+                Scene newScene = new Scene(root);
+                stage.setScene(newScene);
+                stage.show();
+
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
         new Thread(dataTask).start();
     }
 }
